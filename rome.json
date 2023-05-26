@@ -1,0 +1,56 @@
+{
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {
+        "recommended": true,
+        "useButtonType": "error"
+      },
+      "complexity": {
+        "recommended": true
+      },
+      "correctness": {
+        "recommended": true
+      },
+      "performance": {
+        "recommended": true
+      },
+      "nursery": {
+        "useIsNan": "warn",
+        "useHookAtTopLevel": "warn",
+        "noConsoleLog": "warn",
+        "useLiteralEnumMembers": "error",
+        "useExhaustiveDependencies": "warn",
+        "noDuplicateJsxProps": "error",
+        "useCamelCase": "warn"
+      },
+      "style": {
+        "recommended": true,
+        "noImplicitBoolean": "warn",
+        "useBlockStatements": "warn"
+      },
+      "suspicious": {
+        "recommended": true
+      },
+      "security": {
+        "recommended": true
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentSize": 2,
+    "lineWidth": 80,
+    "ignore": ["./node_modules/**/*.*"]
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  }
+}
