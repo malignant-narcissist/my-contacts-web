@@ -8,7 +8,7 @@ const Container = styled('div', {
   gap: 35
 } as CSS);
 
-const Header = styled('div');
+const Header = styled('img');
 
 const SearchBar = styled('div');
 
