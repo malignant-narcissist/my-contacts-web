@@ -1,3 +1,4 @@
+import { HeaderImage } from './assets';
 import { ContactList } from './components/ContactList';
 import { Container, Header, SearchBar } from './styles';
 
@@ -22,7 +23,7 @@ import { Container, Header, SearchBar } from './styles';
 const Home = () => {
   return (
     <Container>
-      <Header>MyContacts</Header>
+      <Header src={HeaderImage} />
       <SearchBar>Pesquisar</SearchBar>
       <ContactList />
     </Container>
