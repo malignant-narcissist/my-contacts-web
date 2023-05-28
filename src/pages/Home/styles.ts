@@ -10,6 +10,4 @@ const Container = styled('div', {
 
 const Header = styled('img');
 
-const SearchBar = styled('div');
-
-export { Container, Header, SearchBar };
+export { Container, Header };
