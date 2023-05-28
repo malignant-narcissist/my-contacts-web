@@ -1,6 +1,7 @@
+import * as Stitches from '@stitches/react';
 import { createStitches } from '@stitches/react';
 
-export const { styled, getCssText, css, globalCss, theme } = createStitches({
+export const { styled, getCssText, css, globalCss, theme, config } = createStitches({
   theme: {
     fonts: {
       main: 'Sora, sans-serif',
@@ -29,3 +30,5 @@ export const { styled, getCssText, css, globalCss, theme } = createStitches({
     },
   },
 });
+
+export type CSS = Stitches.CSS<typeof config>;
