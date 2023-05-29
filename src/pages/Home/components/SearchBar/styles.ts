@@ -1,7 +1,7 @@
-import { CSS, styled } from "../../../../../stitches.config";
+import { CSS, styled } from '../../../../../stitches.config';
 
 const Container = styled('div', {
-
-} as CSS)
+  alignSelf: 'center',
+} as CSS);
 
 export { Container };
