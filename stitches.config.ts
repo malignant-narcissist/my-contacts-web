@@ -22,11 +22,11 @@ export const { styled, getCssText, css, globalCss, theme, config } = createStitc
       bold: 700,
     },
     fontSizes: {
-      shorter: 12,
-      short: 14,
-      regular: 16,
-      long: 22,
-      longer: 24,
+      shorter: '12px',
+      short: '14px',
+      regular: '16px',
+      long: '22px',
+      longer: '24px',
     },
   },
 });
