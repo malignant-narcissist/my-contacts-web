@@ -1,10 +1,6 @@
 import { CSS, styled, theme } from '../../../../../stitches.config';
 
-const Container = styled('div', {
-  borderBottom: `2px solid ${theme.colors.gray400.value}20`,
-  borderRadius: 1,
-  paddingBottom: 16,
-} as CSS);
+const Container = styled('div', {} as CSS);
 
 const HeaderArea = styled('div', {
   display: 'flex',
@@ -12,6 +8,9 @@ const HeaderArea = styled('div', {
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
+  borderBottom: `2px solid ${theme.colors.gray400.value}20`,
+  borderRadius: 1,
+  paddingBottom: 16,
 } as CSS);
 
 const HeaderAreaContactCountText = styled('span', {
