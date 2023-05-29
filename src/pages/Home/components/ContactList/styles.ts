@@ -35,6 +35,8 @@ const ListArea = styled('div', {} as CSS);
 
 const ListOrderButton = styled('div', {} as CSS);
 
+const ListOrderIcon = styled('img');
+
 export {
   Container,
   HeaderArea,
@@ -42,4 +44,5 @@ export {
   HeaderAreaCreateContactButton,
   ListArea,
   ListOrderButton,
+  ListOrderIcon,
 };
