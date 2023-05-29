@@ -1,9 +1,9 @@
-import { Container } from './styles';
+import { Container, ControlledInput } from './styles';
 
 const SearchBar: React.FC = () => {
   return (
     <Container>
-      <input type='text' name='' id='' placeholder='Pesquisar contato...' />
+      <ControlledInput type='text' placeholder='Pesquisar contato...' />
     </Container>
   );
 };
