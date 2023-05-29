@@ -1,14 +1,16 @@
 import { HeaderImage } from './assets';
 import { ContactList } from './components/ContactList';
 import { SearchBar } from './components/SearchBar';
-import { Container, Header } from './styles';
+import { Container, ContentContainer, Header } from './styles';
 
 const Home = () => {
   return (
     <Container>
       <Header src={HeaderImage} />
-      <SearchBar />
-      <ContactList />
+      <ContentContainer>
+        <SearchBar />
+        <ContactList />
+      </ContentContainer>
     </Container>
   );
 };
