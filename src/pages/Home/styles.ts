@@ -5,9 +5,17 @@ const Container = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   padding: '65px 0',
-  gap: 35
+  gap: 50,
+  width: '100vw',
 } as CSS);
 
 const Header = styled('img');
 
-export { Container, Header };
+const ContentContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '50%',
+  gap: 35,
+} as CSS)
+
+export { Container, Header, ContentContainer };
