@@ -31,9 +31,15 @@ const HeaderAreaCreateContactButton = styled('button', {
   padding: '10px 14px',
 } as CSS);
 
+const ListArea = styled('div', {} as CSS);
+
+const ListOrderButton = styled('div', {} as CSS);
+
 export {
   Container,
   HeaderArea,
   HeaderAreaContactCountText,
   HeaderAreaCreateContactButton,
+  ListArea,
+  ListOrderButton,
 };
