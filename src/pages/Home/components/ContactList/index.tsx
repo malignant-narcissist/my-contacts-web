@@ -20,7 +20,7 @@ const ContactList: React.FC = () => {
         </HeaderAreaCreateContactButton>
       </HeaderArea>
       <ListArea>
-        <ListOrderButton>
+        <ListOrderButton type="button">
           Nome <ListOrderIcon src={ArrowUpIcon} />
         </ListOrderButton>
       </ListArea>
