@@ -31,9 +31,30 @@ const HeaderAreaCreateContactButton = styled('button', {
   padding: '10px 14px',
 } as CSS);
 
-const ListArea = styled('div', {} as CSS);
+const ListArea = styled('div', {
+  paddingTop: 20,
+} as CSS);
 
-const ListOrderButton = styled('div', {} as CSS);
+const ListOrderButton = styled('button', {
+  display: 'flex',
+  gap: 8,
+  justifyContent: 'center',
+  border: 'none',
+  background: 'none',
+  color: '$primary200',
+  fontSize: '$regular',
+  fontWeight: '$bold',
+
+  variants: {
+    orderAsc: {
+      DESC: {
+        '& > img': {
+          transform: 'scaleY(-1)',
+        },
+      } as CSS,
+    },
+  },
+} as CSS);
 
 const ListOrderIcon = styled('img');
 

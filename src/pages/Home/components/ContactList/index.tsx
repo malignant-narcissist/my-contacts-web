@@ -1,5 +1,6 @@
 import React from 'preact/compat';
 import { ArrowUpIcon } from '../../assets';
+import { useContactList } from './hooks';
 import {
   Container,
   HeaderArea,
@@ -11,6 +12,8 @@ import {
 } from './styles';
 
 const ContactList: React.FC = () => {
+  const { orderAsc, toggleOrderAsc } = useContactList();
+
   return (
     <Container>
       <HeaderArea>
@@ -20,7 +23,11 @@ const ContactList: React.FC = () => {
         </HeaderAreaCreateContactButton>
       </HeaderArea>
       <ListArea>
-        <ListOrderButton type="button">
+        <ListOrderButton
+          orderAsc={orderAsc}
+          onClick={toggleOrderAsc}
+          type='button'
+        >
           Nome <ListOrderIcon src={ArrowUpIcon} />
         </ListOrderButton>
       </ListArea>
