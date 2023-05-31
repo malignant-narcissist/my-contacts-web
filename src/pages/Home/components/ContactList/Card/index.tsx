@@ -14,7 +14,7 @@ import {
 
 type CardProps = {
   name: string;
-  socialMedia?: 'instagram';
+  socialMedia?: 'instagram' | 'facebook' | 'whatsapp' | 'telegram';
   email: `${string}@${string}.${string}`;
   phone: `(${string}) ${string}-${string}`;
   onEdit: () => unknown;
