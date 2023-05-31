@@ -16,6 +16,7 @@ export const { styled, getCssText, css, globalCss, theme, config } = createStitc
       gray200: '#E6E6E6',
       gray100: '#F6F5FC',
       white: '#FFFFFF',
+      black: '#000000'
     },
     fontWeights: {
       regular: 400,
