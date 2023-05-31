@@ -16,6 +16,7 @@ const ButtonBase = styled('button', {
 } as CSS)
 
 const Container = styled('div', {
+  marginTop: 10,
   padding: 16,
   backgroundColor: '$white',
   display: 'flex',
