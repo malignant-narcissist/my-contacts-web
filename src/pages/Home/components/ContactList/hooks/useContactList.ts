@@ -76,10 +76,10 @@ const useContactList = (startList?: State['list']) => {
       }
 
       if (orderAsc === 'ASC') {
-        return a.name > b.name ? -1 : 1;
+        return a.name < b.name ? -1 : 1;
       }
 
-      return a.name < b.name ? -1 : 1;
+      return a.name > b.name ? -1 : 1;
     });
   }, [cardList.list, orderAsc]);
 
