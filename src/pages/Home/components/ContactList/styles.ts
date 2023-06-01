@@ -58,12 +58,19 @@ const ListOrderButton = styled('button', {
 
 const ListOrderIcon = styled('img');
 
+const ListCardContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 16
+} as CSS)
+
 export {
   Container,
   HeaderArea,
   HeaderAreaContactCountText,
   HeaderAreaCreateContactButton,
   ListArea,
+  ListCardContainer,
   ListOrderButton,
   ListOrderIcon,
 };
