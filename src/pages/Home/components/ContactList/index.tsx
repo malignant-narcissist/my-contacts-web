@@ -24,7 +24,9 @@ const ContactList: React.FC = () => {
   return (
     <Container>
       <HeaderArea>
-        <HeaderAreaContactCountText>3 contatos</HeaderAreaContactCountText>
+        <HeaderAreaContactCountText>
+          {contacts.size} {contacts.size ? 'contatos' : 'contato'}
+        </HeaderAreaContactCountText>
         <HeaderAreaCreateContactButton>
           Novo Contato
         </HeaderAreaCreateContactButton>
