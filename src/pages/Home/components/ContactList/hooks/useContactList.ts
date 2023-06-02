@@ -1,5 +1,4 @@
 import { Reducer, useMemo, useReducer } from 'preact/hooks';
-import { ImmerReducer, useImmerReducer } from 'use-immer';
 
 type Card = {
   id: string;
@@ -16,61 +15,15 @@ type State = {
   };
 };
 
-type Actions =
-  | {
-      type: 'remove';
-      payload: string;
-    }
-  | {
-      type: 'add';
-      payload: State['list'][number] | State['list'];
-    }
-  | {
-      type: 'edit';
-      payload: Partial<State['list'][number]> & { id: string };
-    };
-
-const reducer: ImmerReducer<State, Actions> = (draft, actions) => {
-  switch (actions.type) {
-    case 'add':
-      if (Array.isArray(actions.payload)) {
-        draft.list.push(...actions.payload);
-      } else {
-        draft.list.push(actions.payload);
-      }
-      break;
-    case 'edit': {
-      const contact = draft.list.find(({ id }) => id === actions.payload.id);
-
-      if (contact) {
-        Object.assign(contact, actions.payload);
-      }
-      break;
-    }
-    case 'remove': {
-      const newList = draft.list.filter(({ id }) => id !== actions.payload);
-      draft.list = newList;
-      break;
-    }
-    default:
-      throw new Error('Ação inválida');
-  }
-
-  return draft;
-};
-
 const orderAscReducer: Reducer<'ASC' | 'DESC', undefined> = (state) => {
   return state === 'ASC' ? 'DESC' : 'ASC';
 };
 
-const useContactList = (startList?: State['list']) => {
-  const [cardList, dispatchCardList] = useImmerReducer(reducer, {
-    list: startList ?? [],
-  });
+const useContactList = (list: State['list']) => {
   const [orderAsc, toggleOrderAsc] = useReducer(orderAscReducer, 'ASC');
 
   const displayableList = useMemo<State['list']>(() => {
-    return cardList.list.sort((a, b) => {
+    return list.sort((a, b) => {
       if (a.name === b.name) {
         return 0;
       }
@@ -81,11 +34,9 @@ const useContactList = (startList?: State['list']) => {
 
       return a.name > b.name ? -1 : 1;
     });
-  }, [cardList.list, orderAsc]);
+  }, [list, orderAsc]);
 
   return {
-    cardList,
-    dispatchCardList: dispatchCardList as (actions: Actions) => void,
     orderAsc,
     toggleOrderAsc,
     displayableList,
