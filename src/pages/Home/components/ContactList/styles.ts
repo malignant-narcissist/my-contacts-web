@@ -61,7 +61,9 @@ const ListOrderIcon = styled('img');
 const ListCardContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  gap: 16
+  gap: 16,
+  overflowY: 'scroll',
+  maxHeight: '55vh'
 } as CSS)
 
 export {
