@@ -34,7 +34,7 @@ const ContactList: React.FC = () => {
     <Container>
       <HeaderArea>
         <HeaderAreaContactCountText>
-          {contacts.size && `${contacts.size}contatos`}
+          {contacts.size ? `${contacts.size} contatos` : null}
         </HeaderAreaContactCountText>
         <HeaderAreaCreateContactButton>
           Novo Contato
