@@ -1,28 +1,14 @@
-import { Reducer, useMemo, useReducer } from 'preact/hooks';
+import { CardType, OrderAscReducerFunctionType } from './types';
+import { useMemo, useReducer } from 'preact/hooks';
 
-type Card = {
-  id: string;
-  name: string;
-  socialMedia?: 'instagram' | 'facebook' | 'whatsapp' | 'telegram';
-  email: `${string}@${string}.${string}`;
-  phone: `(${string}) ${string}-${string}`;
-};
-
-type State = {
-  list: Card[];
-  filters?: {
-    name: string;
-  };
-};
-
-const orderAscReducer: Reducer<'ASC' | 'DESC', undefined> = (state) => {
+const orderAscReducer: OrderAscReducerFunctionType = (state) => {
   return state === 'ASC' ? 'DESC' : 'ASC';
 };
 
-const useContactList = (list: State['list']) => {
+const useContactList = (list: CardType[]) => {
   const [orderAsc, toggleOrderAsc] = useReducer(orderAscReducer, 'ASC');
 
-  const displayableList = useMemo<State['list']>(() => {
+  const displayableList = useMemo<CardType[]>(() => {
     return list.sort((a, b) => {
       if (a.name === b.name) {
         return 0;

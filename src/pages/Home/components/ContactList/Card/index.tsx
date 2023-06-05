@@ -1,5 +1,5 @@
-import React from 'preact/compat';
 import { EditIcon, TrashIcon } from '../../../assets';
+import { CardType } from '../hooks/types';
 import {
   ButtonEdit,
   ButtonImage,
@@ -11,12 +11,9 @@ import {
   ContentArea,
   ContentRow,
 } from './styles';
+import React from 'preact/compat';
 
-type CardProps = {
-  name: string;
-  socialMedia?: 'instagram' | 'facebook' | 'whatsapp' | 'telegram';
-  email: `${string}@${string}.${string}`;
-  phone: `(${string}) ${string}-${string}`;
+type CardProps = Omit<CardType, 'id'> & {
   onEdit: () => unknown;
   onRemove: () => unknown;
 };
