@@ -1,5 +1,3 @@
-import { listContactsService } from '../../../../shared/services/contacts/listContactsService';
-import { useContactStore } from '../../../../shared/stores/contacts.store';
 import { ArrowUpIcon } from '../../assets';
 import { Card } from './Card';
 import { useContactList } from './hooks';
@@ -13,28 +11,21 @@ import {
   ListOrderButton,
   ListOrderIcon,
 } from './styles';
-import React, { useEffect } from 'preact/compat';
+import React from 'preact/compat';
 
 const ContactList: React.FC = () => {
-  const { contacts, edit, remove, add } = useContactStore();
-
-  useEffect(() => {
-    listContactsService()
-      .then((resp) => {
-        add(resp);
-      })
-      .catch();
-  }, [add]);
-
-  const { orderAsc, toggleOrderAsc, displayableList } = useContactList([
-    ...contacts.values(),
-  ]);
+  const {
+    displayableList,
+    orderAsc,
+    removeContact,
+    toggleOrderAsc,
+  } = useContactList();
 
   return (
     <Container>
       <HeaderArea>
         <HeaderAreaContactCountText>
-          {contacts.size ? `${contacts.size} contatos` : null}
+          {displayableList.length ? `${displayableList.length} contatos` : null}
         </HeaderAreaContactCountText>
         <HeaderAreaCreateContactButton>
           Novo Contato
@@ -55,7 +46,7 @@ const ContactList: React.FC = () => {
               key={card.id}
               {...card}
               onEdit={() => {}}
-              onRemove={() => remove(card.id)}
+              onRemove={() => removeContact(card.id)}
             />
           ))}
         </ListCardContainer>
