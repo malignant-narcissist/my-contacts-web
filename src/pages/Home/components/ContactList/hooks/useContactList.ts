@@ -32,12 +32,8 @@ const useContactList = () => {
   }, [add]);
 
   useEffect(() => {
-    listContactsService()
-      .then((resp) => {
-        add(resp);
-      })
-      .catch();
-  }, [add]);
+    updateContactsList()
+  }, [updateContactsList]);
 
   const displayableList = useMemo<CardType[]>(() => {
     return [...contacts.values()].sort((a, b) => {
