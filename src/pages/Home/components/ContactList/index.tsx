@@ -1,3 +1,4 @@
+import { listContactsService } from '../../../../shared/services/contacts/listContactsService';
 import { useContactStore } from '../../../../shared/stores/contacts.store';
 import { ArrowUpIcon } from '../../assets';
 import { Card } from './Card';
@@ -12,10 +13,18 @@ import {
   ListOrderButton,
   ListOrderIcon,
 } from './styles';
-import React from 'preact/compat';
+import React, { useEffect } from 'preact/compat';
 
 const ContactList: React.FC = () => {
-  const { contacts, edit, remove } = useContactStore();
+  const { contacts, edit, remove, add } = useContactStore();
+
+  useEffect(() => {
+    listContactsService()
+      .then((resp) => {
+        add(resp);
+      })
+      .catch();
+  }, [add]);
 
   const { orderAsc, toggleOrderAsc, displayableList } = useContactList([
     ...contacts.values(),
@@ -45,13 +54,7 @@ const ContactList: React.FC = () => {
             <Card
               key={card.id}
               {...card}
-              onEdit={() =>
-                edit({
-                  id: card.id,
-                  name: 'Julius Novachrono',
-                  email: 'julis.novachrono@mail.com',
-                })
-              }
+              onEdit={() => {}}
               onRemove={() => remove(card.id)}
             />
           ))}
