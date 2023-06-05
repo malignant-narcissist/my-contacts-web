@@ -1,4 +1,5 @@
 import { ArrowUpIcon } from '../../assets';
+import { ErrorWarning } from '../ErrorWarning';
 import { Card } from './Card';
 import { useContactList } from './hooks';
 import {
@@ -16,9 +17,11 @@ import React from 'preact/compat';
 const ContactList: React.FC = () => {
   const {
     displayableList,
+    hasError,
     orderAsc,
     removeContact,
     toggleOrderAsc,
+    updateContactsList,
   } = useContactList();
 
   return (
@@ -40,16 +43,20 @@ const ContactList: React.FC = () => {
           Nome <ListOrderIcon src={ArrowUpIcon} />
         </ListOrderButton>
 
-        <ListCardContainer>
-          {displayableList.map((card) => (
-            <Card
-              key={card.id}
-              {...card}
-              onEdit={() => {}}
-              onRemove={() => removeContact(card.id)}
-            />
-          ))}
-        </ListCardContainer>
+        {hasError ? (
+          <ErrorWarning onRetry={updateContactsList} />
+        ) : (
+          <ListCardContainer>
+            {displayableList.map((card) => (
+              <Card
+                key={card.id}
+                {...card}
+                onEdit={() => {}}
+                onRemove={() => removeContact(card.id)}
+              />
+            ))}
+          </ListCardContainer>
+        )}
       </ListArea>
     </Container>
   );
