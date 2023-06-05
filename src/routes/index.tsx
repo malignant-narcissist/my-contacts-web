@@ -1,5 +1,5 @@
-import { Route, Router } from 'wouter-preact';
 import { Home } from '../pages/Home';
+import { Route, Router } from 'wouter-preact';
 
 const routes = () => {
   return (
