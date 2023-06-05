@@ -1,13 +1,8 @@
+import { CardType } from '../../pages/Home/components/ContactList/hooks/types';
 import { produce } from 'immer';
 import { create } from 'zustand';
 
-type Contact = {
-  id: string;
-  name: string;
-  socialMedia?: 'instagram' | 'facebook' | 'whatsapp' | 'telegram';
-  email: `${string}@${string}.${string}`;
-  phone: `(${string}) ${string}-${string}`;
-};
+type Contact = CardType;
 
 type ContactStore<C extends Contact = Contact> = {
   contacts: Map<string, C>;
