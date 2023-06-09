@@ -31,9 +31,9 @@ const Card: React.FC<CardProps> = ({
       <ContentArea className='content-area'>
         <ContentRow className='row'>
           <ContactName className='contact-name'>{name}</ContactName>
-          <ContactSocialMedia className='badge-social-media'>
-            {socialMedia}
-          </ContactSocialMedia>
+          {socialMedia && (
+            <ContactSocialMedia>{socialMedia}</ContactSocialMedia>
+          )}
         </ContentRow>
         <ContactPhone className='contact-mail'>{email}</ContactPhone>
         <ContactPhone className='contact-phone'>{phone}</ContactPhone>
