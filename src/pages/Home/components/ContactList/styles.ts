@@ -7,10 +7,13 @@ const HeaderArea = styled('div', {
   flex: 1,
   flexDirection: 'row',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   borderBottom: `2px solid ${theme.colors.gray400.value}20`,
   borderRadius: 1,
   paddingBottom: 16,
+  '&:has(span)': {
+    justifyContent: 'space-between',
+  }
 } as CSS);
 
 const HeaderAreaContactCountText = styled('span', {
