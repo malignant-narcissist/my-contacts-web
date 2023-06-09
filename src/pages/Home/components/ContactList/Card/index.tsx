@@ -28,18 +28,18 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <Container>
-      <ContentArea className='content-area'>
-        <ContentRow className='row'>
-          <ContactName className='contact-name'>{name}</ContactName>
+      <ContentArea>
+        <ContentRow>
+          <ContactName>{name}</ContactName>
           {socialMedia && (
             <ContactSocialMedia>{socialMedia}</ContactSocialMedia>
           )}
         </ContentRow>
-        <ContactPhone className='contact-mail'>{email}</ContactPhone>
-        <ContactPhone className='contact-phone'>{phone}</ContactPhone>
+        <ContactPhone>{email}</ContactPhone>
+        <ContactPhone>{phone}</ContactPhone>
       </ContentArea>
 
-      <ContentArea className='content-area'>
+      <ContentArea>
         <ButtonEdit onClick={onEdit}>
           <ButtonImage src={EditIcon} />
         </ButtonEdit>
