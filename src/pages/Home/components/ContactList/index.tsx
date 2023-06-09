@@ -1,4 +1,5 @@
 import { ArrowUpIcon } from '../../assets';
+import { EmptyListWarning } from '../EmptyListWarning';
 import { ErrorWarning } from '../ErrorWarning';
 import { Card } from './Card';
 import { useContactList } from './hooks';
@@ -35,27 +36,33 @@ const ContactList: React.FC = () => {
         </HeaderAreaCreateContactButton>
       </HeaderArea>
       <ListArea>
-        <ListOrderButton
-          orderAsc={orderAsc}
-          onClick={toggleOrderAsc}
-          type='button'
-        >
-          Nome <ListOrderIcon src={ArrowUpIcon} />
-        </ListOrderButton>
+        {displayableList.length ? (
+          <>
+            <ListOrderButton
+              orderAsc={orderAsc}
+              onClick={toggleOrderAsc}
+              type='button'
+            >
+              Nome <ListOrderIcon src={ArrowUpIcon} />
+            </ListOrderButton>
 
-        {hasError ? (
-          <ErrorWarning onRetry={updateContactsList} />
+            {hasError ? (
+              <ErrorWarning onRetry={updateContactsList} />
+            ) : (
+              <ListCardContainer>
+                {displayableList.map((card) => (
+                  <Card
+                    key={card.id}
+                    {...card}
+                    onEdit={() => {}}
+                    onRemove={() => removeContact(card.id)}
+                  />
+                ))}
+              </ListCardContainer>
+            )}
+          </>
         ) : (
-          <ListCardContainer>
-            {displayableList.map((card) => (
-              <Card
-                key={card.id}
-                {...card}
-                onEdit={() => {}}
-                onRemove={() => removeContact(card.id)}
-              />
-            ))}
-          </ListCardContainer>
+          <EmptyListWarning />
         )}
       </ListArea>
     </Container>
