@@ -21,15 +21,21 @@ const useContactList = (filterName?: string) => {
 
   const updateContactsList = useCallback(async () => {
     try {
-      const list = await listContactsService();
+      const list = await listContactsService({
+        filters: filterName
+          ? {
+              name: filterName,
+            }
+          : {},
+      });
 
-      add(list);
+      reset(list);
 
       setHasError(false);
     } catch {
       setHasError(true);
     }
-  }, [add]);
+  }, [reset, filterName]);
 
   useEffect(() => {
     updateContactsList();
