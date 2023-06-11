@@ -38,7 +38,7 @@ export type CSS = Stitches.CSS<typeof config>;
 
 export const getStyled = <Props extends {} = {}>(
   type: keyof JSX.IntrinsicElements | React.FC,
-  ...composers: [CSS, ...CSS[]]
+  ...composers: CSS[]
 ) =>
   styled(type, ...composers) as React.FC<
     Props & Stitches.ComponentProps<React.FC>
