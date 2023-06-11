@@ -9,6 +9,7 @@ type ContactStore<C extends Contact = Contact> = {
   add: (data: C | C[]) => void;
   edit: (data: Partial<C> & { id: string }) => void;
   remove: (id: string) => void;
+  reset: (data?: C[]) => void;
 };
 
 type ProduceType = (data: ContactStore) => ContactStore;
@@ -43,6 +44,19 @@ const useContactStore = create<ContactStore>()((set) => ({
     set(
       produce<ProduceType>((draft) => {
         draft.contacts.delete(id);
+      }),
+    );
+  },
+  reset: (data) => {
+    set(
+      produce<ProduceType>((draft) => {
+        draft.contacts.clear();
+
+        if (data) {
+          data.forEach((item) => {
+            draft.contacts.set(item.id, item);
+          });
+        }
       }),
     );
   },
