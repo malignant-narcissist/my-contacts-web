@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
+    "@types/node": "^18",
     "miragejs": "^0.1.47",
     "rome": "^12.1.3",
     "typescript": "^5.0.4",

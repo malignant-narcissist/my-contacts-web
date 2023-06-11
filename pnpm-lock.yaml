@@ -31,6 +31,9 @@ devDependencies:
   '@preact/preset-vite':
     specifier: ^2.5.0
     version: 2.5.0(@babel/core@7.22.1)(preact@10.15.1)(vite@4.3.9)
+  '@types/node':
+    specifier: ^18
+    version: 18.16.16
   miragejs:
     specifier: ^0.1.47
     version: 0.1.47
@@ -42,7 +45,7 @@ devDependencies:
     version: 5.0.4
   vite:
     specifier: ^4.3.9
-    version: 4.3.9
+    version: 4.3.9(@types/node@18.16.16)
 
 packages:
 
@@ -546,7 +549,7 @@ packages:
       debug: 4.3.4
       kolorist: 1.8.0
       resolve: 1.22.2
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@18.16.16)
     transitivePeerDependencies:
       - preact
       - supports-color
@@ -580,7 +583,7 @@ packages:
       '@prefresh/utils': 1.2.0
       '@rollup/pluginutils': 4.2.1
       preact: 10.15.1
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@18.16.16)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -648,6 +651,10 @@ packages:
     dependencies:
       react: 18.2.0
     dev: false
+
+  /@types/node@18.16.16:
+    resolution: {integrity: sha512-NpaM49IGQQAUlBhHMF82QH80J08os4ZmyF9MkpCzWAGuOHqE4gTEbhzd7L3l5LmWuZ6E0OiC1FweQ4tsiW35+g==}
+    dev: true
 
   /ansi-styles@3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
@@ -1125,7 +1132,7 @@ packages:
       react: 18.2.0
     dev: false
 
-  /vite@4.3.9:
+  /vite@4.3.9(@types/node@18.16.16):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -1150,6 +1157,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 18.16.16
       esbuild: 0.17.19
       postcss: 8.4.24
       rollup: 3.23.0
