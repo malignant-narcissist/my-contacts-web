@@ -5,7 +5,7 @@ const applyGlobalStyles = globalCss({
     margin: 0,
     padding: 0,
     boxSizing: 'border-box',
-    fontFamily: "$main",
+    fontFamily: '$main',
   },
   body: {
     background: '$gray100',

@@ -7,8 +7,7 @@ const EmptyListWarning: React.FC = () => {
       <EmptyBoxImage src={EmptyBoxImageSource} />
       <RegularText>
         Você ainda não tem nenhum contato cadastrado! Clique no botão{' '}
-        <BoldText>"Novo contato"</BoldText> acima para cadastrar o seu
-        primeiro!
+        <BoldText>"Novo contato"</BoldText> acima para cadastrar o seu primeiro!
       </RegularText>
     </Container>
   );

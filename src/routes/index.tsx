@@ -4,7 +4,7 @@ import { Route, Router } from 'wouter-preact';
 const routes = () => {
   return (
     <Router>
-      <Route path='/' component={ Home } />
+      <Route path='/' component={Home} />
     </Router>
   );
 };

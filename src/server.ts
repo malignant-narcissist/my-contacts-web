@@ -1,5 +1,5 @@
 import { CardType } from './pages/Home/components/ContactList/hooks/types';
-import { createServer } from 'miragejs';
+import { Response, createServer } from 'miragejs';
 
 const makeServer = () => {
   // rome-ignore lint/style/useConst: <explanation>
@@ -7,14 +7,21 @@ const makeServer = () => {
     routes() {
       this.urlPrefix = import.meta.env.VITE_API_BASE_URL;
 
-      this.namespace = 'contacts'
+      this.namespace = 'contacts';
 
-      this.get('', () => ([{
-        id: '1',
-        email: 'asta@mail.com',
-        name: 'Asta Zogratis',
-        phone: '(66) 66666-6666'
-      }] as CardType[]))
+      this.get(
+        '',
+        () => {
+          return new Response(200, undefined, [
+            {
+              id: '1',
+              email: 'asta@mail.com',
+              name: 'Asta Zogratis',
+              phone: '(66) 66666-6666',
+            },
+          ] satisfies CardType[]);
+        },
+      );
     },
   });
 

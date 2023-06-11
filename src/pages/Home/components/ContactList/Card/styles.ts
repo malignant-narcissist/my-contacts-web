@@ -1,11 +1,11 @@
-import { CSS, styled, theme } from '../../../../../../stitches.config';
+import { getStyled, theme } from '../../../../../../stitches.config';
 
-const ContactMailPhoneBase = styled('span', {
+const ContactMailPhoneBase = getStyled('span', {
   color: '$gray400',
   fontSize: '$short',
-} as CSS);
+});
 
-const ButtonBase = styled('button', {
+const ButtonBase = getStyled('button', {
   border: 'none',
   background: 'none',
   padding: 2,
@@ -13,9 +13,9 @@ const ButtonBase = styled('button', {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-} as CSS)
+});
 
-const Container = styled('div', {
+const Container = getStyled('div', {
   marginTop: 10,
   padding: 16,
   backgroundColor: '$white',
@@ -25,10 +25,10 @@ const Container = styled('div', {
   alignItems: 'center',
   borderRadius: 4,
   $$boxShadowColor: `${theme.colors.black.value}04`,
-  boxShadow: "0px 4px 10px $$boxShadowColor",
-} as CSS);
+  boxShadow: '0px 4px 10px $$boxShadowColor',
+});
 
-const ContentArea = styled('div', {
+const ContentArea = getStyled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 5,
@@ -36,20 +36,20 @@ const ContentArea = styled('div', {
     flexDirection: 'row',
     gap: 10,
   },
-} as CSS);
+});
 
-const ContentRow = styled('div', {
+const ContentRow = getStyled('div', {
   display: 'flex',
   gap: 8,
-} as CSS);
+});
 
-const ContactName = styled('strong', {
+const ContactName = getStyled('strong', {
   fontSize: '$regular',
   fontWeight: '$bold',
   color: '$dark',
-} as CSS);
+});
 
-const ContactSocialMedia = styled('span', {
+const ContactSocialMedia = getStyled('span', {
   padding: '3px 6px',
   borderRadius: 4,
   fontSize: '$shorter',
@@ -57,17 +57,17 @@ const ContactSocialMedia = styled('span', {
   color: '$primary200',
   backgroundColor: '$primary100',
   textTransform: 'uppercase',
-} as CSS);
+});
 
-const ContactMail = styled(ContactMailPhoneBase);
+const ContactMail = getStyled(ContactMailPhoneBase);
 
-const ContactPhone = styled(ContactMailPhoneBase);
+const ContactPhone = getStyled(ContactMailPhoneBase);
 
-const ButtonEdit = styled(ButtonBase);
+const ButtonEdit = getStyled(ButtonBase);
 
-const ButtonRemove = styled(ButtonBase);
+const ButtonRemove = getStyled(ButtonBase);
 
-const ButtonImage = styled('img');
+const ButtonImage = getStyled('img');
 
 export {
   Container,

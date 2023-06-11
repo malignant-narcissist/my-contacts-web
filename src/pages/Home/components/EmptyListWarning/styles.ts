@@ -1,36 +1,31 @@
-import { CSS, styled } from '../../../../../stitches.config';
+import { CSS, getStyled } from '../../../../../stitches.config';
 
-const cssText = {
+const cssText: CSS = {
   fontSize: '$regular',
   textAlign: 'center',
-} as CSS;
+};
 
-const Container = styled('div', {
+const Container = getStyled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: 16
-} as CSS);
+  gap: 16,
+});
 
-const EmptyBoxImage = styled('img', {
-  maxWidth: 'fit-content'
-} as CSS);
+const EmptyBoxImage = getStyled('img', {
+  maxWidth: 'fit-content',
+});
 
-const RegularText = styled('p', {
+const RegularText = getStyled('p', {
   ...cssText,
   color: '$gray400',
   fontWeight: '$regular',
-} as CSS);
+});
 
-const BoldText = styled('span', {
+const BoldText = getStyled('span', {
   ...cssText,
   color: '$primary200',
   fontWeight: '$bold',
-} as CSS);
+});
 
-export {
-  BoldText,
-  Container,
-  EmptyBoxImage,
-  RegularText,
-}
+export { BoldText, Container, EmptyBoxImage, RegularText };

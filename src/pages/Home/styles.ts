@@ -16,6 +16,6 @@ const ContentContainer = styled('div', {
   flexDirection: 'column',
   width: '50%',
   gap: 35,
-} as CSS)
+} as CSS);
 
 export { Container, Header, ContentContainer };

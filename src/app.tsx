@@ -3,7 +3,7 @@ import Routes from './routes';
 
 import { enableMapSet } from 'immer';
 
-enableMapSet()
+enableMapSet();
 
 export const App = () => {
   applyGlobalStyles();

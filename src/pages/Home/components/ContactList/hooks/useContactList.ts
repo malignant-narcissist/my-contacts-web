@@ -32,7 +32,7 @@ const useContactList = () => {
   }, [add]);
 
   useEffect(() => {
-    updateContactsList()
+    updateContactsList();
   }, [updateContactsList]);
 
   const displayableList = useMemo<CardType[]>(() => {

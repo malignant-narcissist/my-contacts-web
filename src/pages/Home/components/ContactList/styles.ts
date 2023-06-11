@@ -1,8 +1,8 @@
-import { CSS, styled, theme } from '../../../../../stitches.config';
+import { getStyled, theme } from '../../../../../stitches.config';
 
-const Container = styled('div', {} as CSS);
+const Container = getStyled('div');
 
-const HeaderArea = styled('div', {
+const HeaderArea = getStyled('div', {
   display: 'flex',
   flex: 1,
   flexDirection: 'row',
@@ -13,16 +13,16 @@ const HeaderArea = styled('div', {
   paddingBottom: 16,
   '&:has(span)': {
     justifyContent: 'space-between',
-  }
-} as CSS);
+  },
+});
 
-const HeaderAreaContactCountText = styled('span', {
+const HeaderAreaContactCountText = getStyled('span', {
   color: '$dark',
   fontSize: '$longer',
   fontWeight: '$bold',
-} as CSS);
+});
 
-const HeaderAreaCreateContactButton = styled('button', {
+const HeaderAreaCreateContactButton = getStyled('button', {
   borderColor: '$primary200',
   color: '$primary200',
   borderWidth: 2,
@@ -32,13 +32,13 @@ const HeaderAreaCreateContactButton = styled('button', {
   fontSize: '$regular',
   fontWeight: '$bold',
   padding: '10px 14px',
-} as CSS);
+});
 
-const ListArea = styled('div', {
+const ListArea = getStyled('div', {
   paddingTop: 20,
-} as CSS);
+});
 
-const ListOrderButton = styled('button', {
+const ListOrderButton = getStyled('button', {
   display: 'flex',
   gap: 8,
   justifyContent: 'center',
@@ -54,20 +54,20 @@ const ListOrderButton = styled('button', {
         '& > img': {
           transform: 'scaleY(-1)',
         },
-      } as CSS,
+      },
     },
   },
-} as CSS);
+});
 
-const ListOrderIcon = styled('img');
+const ListOrderIcon = getStyled('img');
 
-const ListCardContainer = styled('div', {
+const ListCardContainer = getStyled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: 16,
   overflowY: 'scroll',
-  maxHeight: '55vh'
-} as CSS)
+  maxHeight: '55vh',
+});
 
 export {
   Container,

@@ -1,4 +1,4 @@
-import { Reducer } from "preact/hooks";
+import { Reducer } from 'preact/hooks';
 
 export type CardType = {
   id: string;
@@ -6,6 +6,6 @@ export type CardType = {
   socialMedia?: 'instagram' | 'facebook' | 'whatsapp' | 'telegram';
   email: `${string}@${string}.${string}`;
   phone: `(${string}) ${string}-${string}`;
-}
+};
 
-export type OrderAscReducerFunctionType = Reducer<'ASC' | 'DESC', never>
+export type OrderAscReducerFunctionType = Reducer<'ASC' | 'DESC', never>;
