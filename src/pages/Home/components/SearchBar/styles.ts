@@ -1,11 +1,12 @@
-import { CSS, styled } from '../../../../../stitches.config';
+import { getStyled } from '../../../../../stitches.config';
+import { HTMLAttributes } from 'preact/compat';
 
-const Container = styled('div', {
+const Container = getStyled('div', {
   alignSelf: 'center',
   width: '100%',
-} as CSS);
+});
 
-const ControlledInput = styled('input', {
+const ControlledInput = getStyled<HTMLAttributes<HTMLInputElement>>('input', {
   width: '100%',
   padding: 16,
   border: 'none',
@@ -14,8 +15,8 @@ const ControlledInput = styled('input', {
   color: '$dark',
   '&::placeholder': {
     color: '$gray400',
-    fontSize: '$regular'
+    fontSize: '$regular',
   },
-} as CSS);
+});
 
 export { Container, ControlledInput };
