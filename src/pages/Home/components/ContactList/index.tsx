@@ -15,7 +15,9 @@ import {
 } from './styles';
 import React from 'preact/compat';
 
-const ContactList: React.FC = () => {
+type Props = Record<'filterName', string | undefined>;
+
+const ContactList: React.FC<Props> = ({ filterName }) => {
   const {
     displayableList,
     hasError,
@@ -23,7 +25,7 @@ const ContactList: React.FC = () => {
     removeContact,
     toggleOrderAsc,
     updateContactsList,
-  } = useContactList();
+  } = useContactList(filterName);
 
   return (
     <Container>
