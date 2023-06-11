@@ -13,8 +13,8 @@ const orderAscReducer: OrderAscReducerFunctionType = (state) => {
   return state === 'ASC' ? 'DESC' : 'ASC';
 };
 
-const useContactList = () => {
-  const { contacts, edit, remove, add } = useContactStore();
+const useContactList = (filterName?: string) => {
+  const { contacts, edit, remove, add, reset } = useContactStore();
 
   const [hasError, setHasError] = useState(false);
   const [orderAsc, toggleOrderAsc] = useReducer(orderAscReducer, 'ASC');
