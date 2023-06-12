@@ -1,25 +1,8 @@
-import {AddContactButton, FormContainer, SelectInput, SelectOption, TextInput} from "./styles"
-import React, {TargetedEvent} from "preact/compat";
-import {useCallback, useDebugValue, useMemo, useState} from "preact/hooks";
-
-type Props = {
-  onSubmit: () => Promise<unknown>
-}
-
-const FORM_FIELDS = {
-  NAME: 'name',
-  EMAIL: 'email',
-  PHONE: 'phone',
-  CATEGORY: 'category',
-} as const;
-
-const FIELDS_PLACEHOLDERS = {
-  [FORM_FIELDS.NAME]: 'Nome',
-  [FORM_FIELDS.EMAIL]: 'E-mail',
-  [FORM_FIELDS.PHONE]: 'Telefone',
-} as const;
-
-type FormDataState = Partial<Record<typeof FORM_FIELDS[keyof typeof FORM_FIELDS], string | undefined>>
+import { AddContactButton, FormContainer, SelectInput, SelectOption, TextInput } from "./styles"
+import React, { TargetedEvent } from "preact/compat";
+import { useCallback, useMemo, useState } from "preact/hooks";
+import { FORM_FIELDS, FIELDS_PLACEHOLDERS } from "./constants";
+import { Props, FormDataState, FormDataType } from "./types";
 
 const Form: React.FC<Props> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<FormDataState>({});
@@ -39,10 +22,18 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
 
           typeof value === 'string' && setFormData(state => ({
             ...state,
-            [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : value,
+            [key]: key === FORM_FIELDS.CATEGORY && !value 
+              ? undefined 
+              : value,
           }))
         }
     }, []
+  )
+
+  const onClick = useCallback(
+    () => {
+      onSubmit(formData as FormDataType);
+    }, [formData, onSubmit]
   )
   
   return (
@@ -88,7 +79,13 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
           }
         )
       }
-      <AddContactButton disabled={!isFormValid} type="button" onClick={onSubmit}>Cadastrar</AddContactButton>
+      <AddContactButton 
+        disabled={!isFormValid} 
+        type="button" 
+        onClick={onClick}
+      >
+        Cadastrar
+      </AddContactButton>
     </FormContainer>
   )
 }
