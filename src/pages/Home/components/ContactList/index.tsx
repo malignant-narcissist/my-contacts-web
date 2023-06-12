@@ -19,6 +19,7 @@ type Props = Record<'filterName', string | undefined>;
 
 const ContactList: React.FC<Props> = ({ filterName }) => {
   const {
+    addContact,
     displayableList,
     hasError,
     orderAsc,
@@ -35,7 +36,7 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
             {`${displayableList.length} contatos`}
           </HeaderAreaContactCountText>
         ) : null}
-        <HeaderAreaCreateContactButton>
+        <HeaderAreaCreateContactButton onClick={addContact}>
           Novo Contato
         </HeaderAreaCreateContactButton>
       </HeaderArea>
@@ -44,7 +45,8 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
           <>
             <ListOrderButton
               orderAsc={orderAsc}
-              onClick={toggleOrderAsc}
+              // @ts-ignore
+              onClick={() => toggleOrderAsc() }
               type='button'
             >
               Nome <ListOrderIcon src={ArrowUpIcon} />
