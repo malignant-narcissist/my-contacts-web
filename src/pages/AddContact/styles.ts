@@ -1,0 +1,33 @@
+import { HTMLAttributes } from 'preact/compat';
+import { getStyled } from '../../../stitches.config';
+
+const Container = getStyled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  padding: '65px 0',
+  gap: 50,
+  width: '100vw',
+});
+
+const Header = getStyled<HTMLAttributes<HTMLImageElement>>('img');
+
+const ContentContainer = getStyled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  width: '50%',
+  gap: 35,
+})
+
+const GoBackButton = getStyled<HTMLAttributes<HTMLButtonElement>>('button', {
+  border: 'none',
+  background: 'transparent',
+  color: '$primary200',
+  fontSize: '$regular',
+  fontWeight: '$bold',
+  alignSelf: 'flex-start'
+});
+
+const TitleText = getStyled('h1');
+
+export { Container, Header, ContentContainer, GoBackButton, TitleText };
