@@ -26,6 +26,8 @@ const GoBackButton = getStyled<HTMLAttributes<HTMLButtonElement>>('button', {
   fontSize: '$regular',
   fontWeight: '$bold',
   alignSelf: 'flex-start',
+  display:'flex',
+  gap: 8,
 });
 
 const GoBackButtonIcon = getStyled<HTMLAttributes<HTMLImageElement>>('img', {});

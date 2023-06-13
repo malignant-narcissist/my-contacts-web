@@ -27,7 +27,7 @@ const AddContact: React.FC = () => {
     <Container>
       <Header src={HeaderImage} />
       <ContentContainer>
-        <GoBackButton>
+        <GoBackButton type='button'>
           <GoBackButtonIcon alt='arrow-back' src={ArrowBackIcon} /> Voltar
         </GoBackButton>
         <TitleText>Novo contato</TitleText>
