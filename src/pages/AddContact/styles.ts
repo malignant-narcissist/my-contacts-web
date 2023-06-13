@@ -26,7 +26,7 @@ const GoBackButton = getStyled<HTMLAttributes<HTMLButtonElement>>('button', {
   fontSize: '$regular',
   fontWeight: '$bold',
   alignSelf: 'flex-start',
-  display:'flex',
+  display: 'flex',
   gap: 8,
 });
 
