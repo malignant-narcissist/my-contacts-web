@@ -1,6 +1,7 @@
 import { ArrowUpIcon } from '../../assets';
 import { EmptyListWarning } from '../EmptyListWarning';
 import { ErrorWarning } from '../ErrorWarning';
+import { NoContactsFound } from '../NoContactsFound';
 import { Card } from './Card';
 import { useContactList } from './hooks';
 import {
@@ -21,17 +22,17 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
   const {
     addContact,
     displayableList,
-    hasError,
     orderAsc,
     removeContact,
     toggleOrderAsc,
     updateContactsList,
+    mustShow,
   } = useContactList(filterName);
 
   return (
     <Container>
       <HeaderArea>
-        {displayableList.length ? (
+        {mustShow === 'list' || mustShow === 'emptyWithFilter' ? (
           <HeaderAreaContactCountText>
             {`${displayableList.length} contatos`}
           </HeaderAreaContactCountText>
@@ -41,7 +42,11 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
         </HeaderAreaCreateContactButton>
       </HeaderArea>
       <ListArea>
-        {displayableList.length ? (
+        {mustShow === 'emptyWithFilter' ? (
+          <NoContactsFound filterName={filterName} />
+        ) : null}
+        {mustShow === 'empty' ? <EmptyListWarning /> : null}
+        {mustShow === 'error' || mustShow === 'list' ? (
           <>
             <ListOrderButton
               orderAsc={orderAsc}
@@ -52,7 +57,7 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
               Nome <ListOrderIcon src={ArrowUpIcon} />
             </ListOrderButton>
 
-            {hasError ? (
+            {mustShow === 'error' ? (
               <ErrorWarning onRetry={updateContactsList} />
             ) : (
               <ListCardContainer>
@@ -67,9 +72,7 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
               </ListCardContainer>
             )}
           </>
-        ) : (
-          <EmptyListWarning />
-        )}
+        ) : null}
       </ListArea>
     </Container>
   );
