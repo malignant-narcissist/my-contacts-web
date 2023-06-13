@@ -61,13 +61,27 @@ const useContactList = (filterName?: string) => {
     navigate('/add');
   }, [navigate]);
 
+  const mustShow = useMemo<
+    'error' | 'empty' | 'list' | 'emptyWithFilter'
+  >(() => {
+    if (hasError) {
+      return 'error';
+    }
+
+    if (displayableList.length > 0) {
+      return 'list';
+    }
+
+    return filterName ? 'emptyWithFilter' : 'empty';
+  }, [hasError, displayableList.length, filterName]);
+
   return {
     orderAsc,
     toggleOrderAsc,
     displayableList,
-    hasError,
     addContact: goToAddContact,
     editContact: edit,
+    mustShow,
     updateContactsList: updateContactsList,
     removeContact: remove,
   };
