@@ -4,7 +4,7 @@ export const FORM_FIELDS = {
   PHONE: 'phone',
   CATEGORY: 'category',
 } as const;
-  
+
 export const FIELDS_PLACEHOLDERS = {
   [FORM_FIELDS.NAME]: 'Nome',
   [FORM_FIELDS.EMAIL]: 'E-mail',

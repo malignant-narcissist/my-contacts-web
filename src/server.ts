@@ -15,14 +15,14 @@ const makeServer = () => {
           id: '2',
           email: 'lucius@mail.com',
           name: 'Lucius Zogratis',
-          phone: '(91) 97800-8768'
+          phone: '(91) 97800-8768',
         },
         {
           id: '3',
           email: 'yuno@mail.com',
           name: 'Yuno Grinberryall',
-          phone: '(69) 95472-4567'
-        }
+          phone: '(69) 95472-4567',
+        },
       ] satisfies CardType[]);
     },
     routes() {

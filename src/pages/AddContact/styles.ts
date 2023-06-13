@@ -1,5 +1,5 @@
-import { HTMLAttributes } from 'preact/compat';
 import { getStyled } from '../../../stitches.config';
+import { HTMLAttributes } from 'preact/compat';
 
 const Container = getStyled('div', {
   display: 'flex',
@@ -17,7 +17,7 @@ const ContentContainer = getStyled('div', {
   flexDirection: 'column',
   width: '50%',
   gap: 35,
-})
+});
 
 const GoBackButton = getStyled<HTMLAttributes<HTMLButtonElement>>('button', {
   border: 'none',
@@ -25,7 +25,7 @@ const GoBackButton = getStyled<HTMLAttributes<HTMLButtonElement>>('button', {
   color: '$primary200',
   fontSize: '$regular',
   fontWeight: '$bold',
-  alignSelf: 'flex-start'
+  alignSelf: 'flex-start',
 });
 
 const TitleText = getStyled('h1');

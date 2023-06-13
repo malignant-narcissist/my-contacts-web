@@ -46,7 +46,7 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
             <ListOrderButton
               orderAsc={orderAsc}
               // @ts-ignore
-              onClick={() => toggleOrderAsc() }
+              onClick={() => toggleOrderAsc()}
               type='button'
             >
               Nome <ListOrderIcon src={ArrowUpIcon} />

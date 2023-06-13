@@ -1,5 +1,5 @@
 import { getStyled, theme } from '../../../../../stitches.config';
-import { HTMLAttributes } from "preact/compat";
+import { HTMLAttributes } from 'preact/compat';
 
 const Container = getStyled('div');
 
@@ -23,7 +23,9 @@ const HeaderAreaContactCountText = getStyled('span', {
   fontWeight: '$bold',
 });
 
-const HeaderAreaCreateContactButton = getStyled<HTMLAttributes<HTMLButtonElement>>('button', {
+const HeaderAreaCreateContactButton = getStyled<
+  HTMLAttributes<HTMLButtonElement>
+>('button', {
   borderColor: '$primary200',
   color: '$primary200',
   borderWidth: 2,
@@ -39,7 +41,9 @@ const ListArea = getStyled('div', {
   paddingTop: 20,
 });
 
-const ListOrderButton = getStyled<{orderAsc: "ASC" | "DESC"} & HTMLAttributes<HTMLButtonElement>>('button', {
+const ListOrderButton = getStyled<
+  { orderAsc: 'ASC' | 'DESC' } & HTMLAttributes<HTMLButtonElement>
+>('button', {
   display: 'flex',
   gap: 8,
   justifyContent: 'center',

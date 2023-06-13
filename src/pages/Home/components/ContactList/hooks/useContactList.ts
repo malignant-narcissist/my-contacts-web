@@ -57,11 +57,9 @@ const useContactList = (filterName?: string) => {
     });
   }, [contacts, orderAsc]);
 
-  const goToAddContact = useCallback(
-    () => {
-      navigate('/add');
-    }, []
-  )
+  const goToAddContact = useCallback(() => {
+    navigate('/add');
+  }, [navigate]);
 
   return {
     orderAsc,
