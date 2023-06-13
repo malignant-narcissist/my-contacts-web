@@ -28,6 +28,15 @@ const GoBackButton = getStyled<HTMLAttributes<HTMLButtonElement>>('button', {
   alignSelf: 'flex-start',
 });
 
+const GoBackButtonIcon = getStyled<HTMLAttributes<HTMLImageElement>>('img', {});
+
 const TitleText = getStyled('h1');
 
-export { Container, Header, ContentContainer, GoBackButton, TitleText };
+export {
+  Container,
+  Header,
+  ContentContainer,
+  GoBackButton,
+  GoBackButtonIcon,
+  TitleText,
+};
