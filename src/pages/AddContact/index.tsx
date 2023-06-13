@@ -14,12 +14,10 @@ import {
 import React from 'preact/compat';
 import { useCallback } from 'preact/hooks';
 
-const AddContact: React.FC = () => {  
-  const goBack = useCallback(
-    () => {
-      window.history.back();
-    }, []
-  )
+const AddContact: React.FC = () => {
+  const goBack = useCallback(() => {
+    window.history.back();
+  }, []);
 
   const onInput = useCallback(async (data: FormDataType) => {
     try {
