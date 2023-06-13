@@ -14,7 +14,13 @@ import {
 import React from 'preact/compat';
 import { useCallback } from 'preact/hooks';
 
-const AddContact: React.FC = () => {
+const AddContact: React.FC = () => {  
+  const goBack = useCallback(
+    () => {
+      window.history.back();
+    }, []
+  )
+
   const onInput = useCallback(async (data: FormDataType) => {
     try {
       await createContactService(data);
@@ -27,7 +33,7 @@ const AddContact: React.FC = () => {
     <Container>
       <Header src={HeaderImage} />
       <ContentContainer>
-        <GoBackButton type='button'>
+        <GoBackButton onClick={goBack} type='button'>
           <GoBackButtonIcon alt='arrow-back' src={ArrowBackIcon} /> Voltar
         </GoBackButton>
         <TitleText>Novo contato</TitleText>
