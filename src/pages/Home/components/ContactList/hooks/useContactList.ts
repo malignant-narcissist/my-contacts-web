@@ -8,13 +8,15 @@ import {
   useReducer,
   useState,
 } from 'preact/hooks';
+import { useLocation } from 'wouter-preact';
 
 const orderAscReducer: OrderAscReducerFunctionType = (state) => {
   return state === 'ASC' ? 'DESC' : 'ASC';
 };
 
 const useContactList = (filterName?: string) => {
-  const { contacts, edit, remove, add, reset } = useContactStore();
+  const { contacts, edit, remove, reset } = useContactStore();
+  const [, navigate] = useLocation();
 
   const [hasError, setHasError] = useState(false);
   const [orderAsc, toggleOrderAsc] = useReducer(orderAscReducer, 'ASC');
@@ -55,12 +57,18 @@ const useContactList = (filterName?: string) => {
     });
   }, [contacts, orderAsc]);
 
+  const goToAddContact = useCallback(
+    () => {
+      navigate('/add');
+    }, []
+  )
+
   return {
     orderAsc,
     toggleOrderAsc,
     displayableList,
     hasError,
-    addContact: add,
+    addContact: goToAddContact,
     editContact: edit,
     updateContactsList: updateContactsList,
     removeContact: remove,
