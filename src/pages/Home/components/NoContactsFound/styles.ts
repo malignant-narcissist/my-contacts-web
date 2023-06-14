@@ -13,7 +13,7 @@ const Container = getStyled('div', {
 const textStyles: CSS = {
   color: '$gray400',
   fontSize: '$regular',
-}
+};
 
 const Text = getStyled('p', {
   flex: 1,
