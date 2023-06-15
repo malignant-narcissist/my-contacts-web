@@ -15,21 +15,32 @@ const ModalProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (modalContainerElement?.style) {
+      const modalContainerElementEntries: [
+        keyof CSSStyleDeclaration,
+        string,
+      ][] = [
+        ['position', 'absolute'],
+        ['top', '0'],
+        ['background', 'rgba(0, 0, 0, 0.6)'],
+        ['backdropFilter', 'blur(3.5px)'],
+        ['width', '100%'],
+        ['height', '100%'],
+      ];
+
+      const modalContainerElementStyle =
+        modalContainerElement.style as {} as Record<
+          keyof CSSStyleDeclaration,
+          string
+        >;
+
       if (modal) {
-        modalContainerElement.style.position = 'absolute';
-        modalContainerElement.style.top = '0';
-        modalContainerElement.style.background = 'rgba(0, 0, 0, 0.6)';
-        modalContainerElement.style.backdropFilter = 'blur(3.5px)';
-        modalContainerElement.style.width = '100%';
-        modalContainerElement.style.height = '100%';
+        modalContainerElementEntries.forEach((item) => {
+          modalContainerElementStyle[item[0]] = item[1];
+        });
       } else {
-        modalContainerElement.style.position = 'initial';
-        modalContainerElement.style.position = 'initial';
-        modalContainerElement.style.top = 'initial';
-        modalContainerElement.style.background = 'initial';
-        modalContainerElement.style.backdropFilter = 'initial';
-        modalContainerElement.style.width = 'initial';
-        modalContainerElement.style.height = 'initial';
+        modalContainerElementEntries.forEach(([key]) => {
+          modalContainerElementStyle[key] = 'initial';
+        });
       }
     }
   }, [modal]);
