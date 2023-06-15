@@ -1,5 +1,8 @@
+import { useModalContainer } from '../../../../../shared/hooks/useModal.tsx';
 import { listContactsService } from '../../../../../shared/services/contacts/listContactsService';
+import { removeContactService } from '../../../../../shared/services/contacts/removeContactService.ts';
 import { useContactStore } from '../../../../../shared/stores/contacts.store';
+import { RemoveContactModal } from '../../modals/RemoveContactModal';
 import { CardType, OrderAscReducerFunctionType } from './types';
 import {
   useCallback,
@@ -16,6 +19,7 @@ const orderAscReducer: OrderAscReducerFunctionType = (state) => {
 
 const useContactList = (filterName?: string) => {
   const { contacts, edit, remove, reset } = useContactStore();
+  const { close, open } = useModalContainer();
   const [, navigate] = useLocation();
 
   const [hasError, setHasError] = useState(false);
@@ -75,6 +79,33 @@ const useContactList = (filterName?: string) => {
     return filterName ? 'emptyWithFilter' : 'empty';
   }, [hasError, displayableList.length, filterName]);
 
+  const removeContact = useCallback(
+    async (id: string) => {
+      const contactToEdit = contacts.get(id);
+
+      if (contactToEdit) {
+        const element = RemoveContactModal({
+          name: contactToEdit.name,
+          onCancel: close,
+          async onDelete() {
+            try {
+              await removeContactService(id);
+
+              remove(id);
+
+              close();
+            } catch (err) {
+              console.error(err);
+            }
+          },
+        });
+
+        element && open(element);
+      }
+    },
+    [open, contacts, close, remove],
+  );
+
   return {
     orderAsc,
     toggleOrderAsc,
@@ -82,8 +113,8 @@ const useContactList = (filterName?: string) => {
     addContact: goToAddContact,
     editContact: edit,
     mustShow,
-    updateContactsList: updateContactsList,
-    removeContact: remove,
+    updateContactsList,
+    removeContact,
   };
 };
 
