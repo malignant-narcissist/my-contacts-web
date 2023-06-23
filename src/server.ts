@@ -43,6 +43,45 @@ const makeServer = () => {
             : schema.db.contacts,
         );
       });
+
+      this.post('', (schema, request) => {
+        const { requestBody } = request;
+
+        const parsedBody = JSON.parse(requestBody) as CardType;
+
+        const toInsert = {
+          ...parsedBody,
+          id: (schema.db.contacts.length + 1).toString(),
+        };
+
+        schema.db.contacts.push(toInsert);
+
+        return new Response(200, undefined, toInsert);
+      });
+
+      this.del('', (schema, request) => {
+        const params = JSON.parse(request.requestBody) as object;
+
+        if (!('id' in params) || typeof params.id !== 'string') {
+          return new Response(400, undefined);
+        }
+
+        schema.db.contacts.remove({ id: params.id });
+
+        return new Response(204, undefined);
+      });
+
+      this.patch('', (schema, request) => {
+        const params = JSON.parse(request.requestBody) as CardType;
+
+        if (!('id' in params) || !params.id) {
+          return new Response(400, undefined);
+        }
+
+        schema.db.contacts.update(params.id);
+
+        return new Response(204, undefined);
+      });
     },
   });
 
