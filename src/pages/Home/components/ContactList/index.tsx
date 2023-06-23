@@ -15,10 +15,13 @@ import {
   ListOrderIcon,
 } from './styles';
 import React from 'preact/compat';
+import { useLocation } from 'wouter-preact';
 
 type Props = Record<'filterName', string | undefined>;
 
 const ContactList: React.FC<Props> = ({ filterName }) => {
+  const [, setLocation] = useLocation();
+
   const {
     addContact,
     displayableList,
@@ -65,7 +68,7 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
                   <Card
                     key={card.id}
                     {...card}
-                    onEdit={() => {}}
+                    onEdit={() => setLocation(`/edit/${card.id}`)}
                     onRemove={() => removeContact(card.id)}
                   />
                 ))}
