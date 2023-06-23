@@ -1,7 +1,8 @@
+import { Contact } from '../../shared/entities/Contact';
 import { editContactService } from '../../shared/services/contacts/editContactsService';
 import { useContactStore } from '../../shared/stores/contacts.store';
 import { HeaderImage } from '../Home/assets';
-import { CardType } from '../Home/components/ContactList/hooks/types';
+// import { CardType } from '../Home/components/ContactList/hooks/types';
 import ArrowBackIcon from './assets/arrow-left.svg';
 import { Form } from './components/Form';
 import {
@@ -32,7 +33,7 @@ const EditContact: React.FC<Props> = ({ contactId }) => {
   }, []);
 
   const onFormSubmit = useCallback(
-    async (data: Omit<CardType, 'id'>) => {
+    async (data: Omit<Contact, 'id'>) => {
       try {
         if (data && contactData?.id) {
           await editContactService({ ...data, id: contactData.id });

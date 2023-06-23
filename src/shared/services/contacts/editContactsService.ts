@@ -1,8 +1,8 @@
-import { CardType } from '../../../pages/Home/components/ContactList/hooks/types';
+import { Contact } from '../../entities/Contact';
 import api from '../api';
 
-const editContactService = async (
-  data: Partial<CardType> & Pick<CardType, 'id'>,
+const editContactService = async <C extends Contact>(
+  data: Partial<C> & Pick<C, 'id'>,
 ) => {
   await api.patch('contacts', {
     json: data,

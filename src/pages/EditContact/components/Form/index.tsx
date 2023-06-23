@@ -1,4 +1,4 @@
-import { CardType } from '../../../Home/components/ContactList/hooks/types';
+import { Contact } from '../../../../shared/entities/Contact';
 import { FIELDS_PLACEHOLDERS, FORM_FIELDS } from './constants';
 import {
   AddContactButton,
@@ -44,7 +44,7 @@ const Form: React.FC<Props> = ({ onSubmit, data: { id, ...data } }) => {
   );
 
   const onClick = useCallback(() => {
-    onSubmit(formData as Omit<CardType, 'id'>);
+    onSubmit(formData as Omit<Contact, 'id'>);
   }, [formData, onSubmit]);
 
   return (

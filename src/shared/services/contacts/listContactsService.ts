@@ -1,19 +1,19 @@
-import { CardType } from '../../../pages/Home/components/ContactList/hooks/types';
+import { Contact } from '../../entities/Contact';
 import api from '../api';
 
-const listContactsService = async (data?: {
+const listContactsService = async <C extends Contact>(data?: {
   filters?: {
     name?: string;
     skip?: number;
   };
-}): Promise<CardType[]> => {
+}): Promise<C[]> => {
   const response = await api
     .get('contacts', {
       searchParams: data?.filters,
     })
-    .json();
+    .json<C[]>();
 
-  return response as CardType[];
+    return response;
 };
 
 export { listContactsService };

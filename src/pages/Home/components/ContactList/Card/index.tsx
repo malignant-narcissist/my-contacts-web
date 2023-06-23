@@ -1,5 +1,5 @@
+import { Contact } from '../../../../../shared/entities/Contact';
 import { EditIcon, TrashIcon } from '../../../assets';
-import { CardType } from '../hooks/types';
 import {
   ButtonEdit,
   ButtonImage,
@@ -13,7 +13,7 @@ import {
 } from './styles';
 import React from 'preact/compat';
 
-type CardProps = Omit<CardType, 'id'> & {
+type CardProps = Omit<Contact, 'id'> & {
   onEdit: () => unknown;
   onRemove: () => unknown;
 };

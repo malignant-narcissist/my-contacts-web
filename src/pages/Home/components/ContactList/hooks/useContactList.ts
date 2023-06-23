@@ -1,9 +1,10 @@
+import { Contact } from '../../../../../shared/entities/Contact.ts';
 import { useModalContainer } from '../../../../../shared/hooks/useModal.tsx';
 import { listContactsService } from '../../../../../shared/services/contacts/listContactsService';
 import { removeContactService } from '../../../../../shared/services/contacts/removeContactService.ts';
 import { useContactStore } from '../../../../../shared/stores/contacts.store';
 import { RemoveContactModal } from '../../modals/RemoveContactModal';
-import { CardType, OrderAscReducerFunctionType } from './types';
+import { OrderAscReducerFunctionType } from './types';
 import {
   useCallback,
   useEffect,
@@ -47,7 +48,7 @@ const useContactList = (filterName?: string) => {
     updateContactsList();
   }, [updateContactsList]);
 
-  const displayableList = useMemo<CardType[]>(() => {
+  const displayableList = useMemo<Contact[]>(() => {
     return [...contacts.values()].sort((a, b) => {
       if (a.name === b.name) {
         return 0;

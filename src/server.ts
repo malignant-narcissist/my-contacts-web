@@ -1,4 +1,4 @@
-import { CardType } from './pages/Home/components/ContactList/hooks/types';
+import { Contact } from './shared/entities/Contact';
 import { Response, createServer } from 'miragejs';
 
 const makeServer = () => {
@@ -23,7 +23,7 @@ const makeServer = () => {
           name: 'Yuno Grinberryall',
           phone: '(69) 95472-4567',
         },
-      ] satisfies CardType[]);
+      ] satisfies Contact[]);
     },
     routes() {
       this.urlPrefix = import.meta.env.VITE_API_BASE_URL;
@@ -37,7 +37,7 @@ const makeServer = () => {
           200,
           undefined,
           queryParams.name
-            ? schema.db.contacts.filter((item: CardType) => {
+            ? schema.db.contacts.filter((item: Contact) => {
                 return item.name.includes(queryParams.name);
               })
             : schema.db.contacts,
@@ -47,7 +47,7 @@ const makeServer = () => {
       this.post('', (schema, request) => {
         const { requestBody } = request;
 
-        const parsedBody = JSON.parse(requestBody) as CardType;
+        const parsedBody = JSON.parse(requestBody) as Contact;
 
         const toInsert = {
           ...parsedBody,
@@ -72,7 +72,7 @@ const makeServer = () => {
       });
 
       this.patch('', (schema, request) => {
-        const params = JSON.parse(request.requestBody) as CardType;
+        const params = JSON.parse(request.requestBody) as Contact;
 
         if (!('id' in params) || !params.id) {
           return new Response(400, undefined);

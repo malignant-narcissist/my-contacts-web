@@ -1,4 +1,4 @@
-import { CardType } from '../../../Home/components/ContactList/hooks/types';
+import { Contact } from '../../../../shared/entities/Contact';
 import { FORM_FIELDS } from './constants';
 
 export type FormDataType = Record<
@@ -9,6 +9,6 @@ export type FormDataType = Record<
 export type FormDataState = FormDataType & { category?: string };
 
 export type Props = {
-  data: CardType;
-  onSubmit: (data: Omit<CardType, 'id'>) => Promise<unknown>;
+  data: Contact;
+  onSubmit: (data: Omit<Contact, 'id'>) => Promise<unknown>;
 };
