@@ -1,4 +1,8 @@
-import { FIELDS_PLACEHOLDERS, FORM_FIELDS } from './constants';
+import {
+  ContactFieldsValidations,
+  FIELDS_PLACEHOLDERS,
+  FORM_FIELDS,
+} from './constants';
 import {
   AddContactButton,
   FormContainer,
@@ -6,42 +10,69 @@ import {
   SelectOption,
   TextInput,
 } from './styles';
-import { FormDataState, FormDataType, Props } from './types';
+import { FormDataType, Props } from './types';
 import React, { TargetedEvent } from 'preact/compat';
 import { useCallback, useMemo, useState } from 'preact/hooks';
+import { StructError } from 'superstruct';
 
 const Form: React.FC<Props> = ({ onSubmit }) => {
-  const [formData, setFormData] = useState<FormDataState>({});
+  const [formData, setFormData] = useState<FormDataType>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof typeof FORM_FIELDS, string | null>>
+  >({});
 
-  const isFormValid = useMemo(() => {
-    const formDataValues = Object.values(formData);
-
-    return (
-      formDataValues.length === 4 && formDataValues.every((item) => !!item)
-    );
-  }, [formData]);
+  const isFormValid = useMemo(
+    () => Object.values(errors).some((item) => !!item),
+    [errors],
+  );
 
   const onInput = useCallback(
-    (
+    async (
       e: TargetedEvent<HTMLInputElement | HTMLSelectElement, Event>,
-      key: keyof FormDataState,
+      key: keyof FormDataType,
     ) => {
       if (e.target && 'value' in e.target) {
         const value = e.target.value;
 
-        typeof value === 'string' &&
-          setFormData((state) => ({
-            ...state,
-            [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : value,
-          }));
+        if (typeof value === 'string') {
+          try {
+            ContactFieldsValidations[key].assert(value);
+
+            setErrors((state) => ({
+              ...state,
+              [key]: null,
+            }));
+          } catch (err) {
+            if (err instanceof StructError) {
+              const ErrorsByFields = {
+                [FORM_FIELDS.EMAIL]: 'Email inválido',
+                [FORM_FIELDS.PHONE]: 'Telefone inválido',
+                [FORM_FIELDS.CATEGORY]: 'Categoria inválida',
+                [FORM_FIELDS.NAME]: 'Nome inválido',
+              };
+
+              setErrors((state) => ({
+                ...state,
+                [key]: ErrorsByFields[key],
+              }));
+            }
+          } finally {
+            setFormData((state) => ({
+              ...state,
+              [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : value,
+            }));
+          }
+        }
       }
     },
     [],
   );
 
   const onClick = useCallback(() => {
-    onSubmit(formData as FormDataType);
-  }, [formData, onSubmit]);
+    if (isFormValid) {
+      onSubmit(formData);
+    }
+  }, [formData, onSubmit, isFormValid]);
 
   return (
     <FormContainer>
@@ -75,7 +106,7 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
           <TextInput
             key={value}
             title={value}
-            type='text'
+            type={value === FORM_FIELDS.EMAIL ? 'email' : 'text'}
             name={value}
             value={formData[value]}
             onInput={(e) => onInput(e, value)}
