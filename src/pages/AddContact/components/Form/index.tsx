@@ -18,7 +18,7 @@ import { StructError } from 'superstruct';
 const Form: React.FC<Props> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<FormDataType>({});
   const [errors, setErrors] = useState<
-    Partial<Record<keyof typeof FORM_FIELDS, string | null>>
+    Partial<Record<typeof FORM_FIELDS[keyof typeof FORM_FIELDS], string | null>>
   >({});
 
   const isFormValid = useMemo(
@@ -27,7 +27,7 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
   );
 
   const onInput = useCallback(
-    async (
+    (
       e: TargetedEvent<HTMLInputElement | HTMLSelectElement, Event>,
       key: keyof FormDataType,
     ) => {
