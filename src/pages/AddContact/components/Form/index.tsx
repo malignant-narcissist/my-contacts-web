@@ -84,6 +84,7 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
               onInput={(e) => onInput(e, value)}
               name={value}
               value={formData[value]}
+              hasError={!!errors[value]}
             >
               <SelectOption
                 value=''
@@ -108,6 +109,7 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
             title={value}
             type={value === FORM_FIELDS.EMAIL ? 'email' : 'text'}
             name={value}
+            hasError={!!errors[value]}
             value={formData[value]}
             onInput={(e) => onInput(e, value)}
             placeholder={
