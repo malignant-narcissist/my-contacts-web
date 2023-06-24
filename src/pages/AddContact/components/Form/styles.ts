@@ -19,6 +19,14 @@ const baseInputStyles: CSS = {
   '&:focus-visible': {
     outline: '2px solid $primary200',
   },
+  variants: {
+    hasError: {
+      true: {
+        outline: '2px solid $tertiary',
+        color: '$tertiary',
+      },
+    },
+  },
 };
 
 const FormContainer = getStyled<HTMLAttributes<HTMLFormElement>>('form', {
@@ -27,12 +35,13 @@ const FormContainer = getStyled<HTMLAttributes<HTMLFormElement>>('form', {
   gap: 16,
 });
 
-const TextInput = getStyled<HTMLAttributes<HTMLInputElement>>(
-  'input',
-  baseInputStyles,
-);
+const TextInput = getStyled<
+  HTMLAttributes<HTMLInputElement> & { hasError?: boolean }
+>('input', baseInputStyles);
 
-const SelectInput = getStyled<HTMLAttributes<HTMLSelectElement>>('select', {
+const SelectInput = getStyled<
+  HTMLAttributes<HTMLSelectElement> & { hasError?: boolean }
+>('select', {
   ...baseInputStyles,
   variants: {
     value: {
