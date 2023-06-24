@@ -13,7 +13,7 @@ const listContactsService = async <C extends Contact>(data?: {
     })
     .json<C[]>();
 
-    return response;
+  return response;
 };
 
 export { listContactsService };
