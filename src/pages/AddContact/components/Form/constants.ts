@@ -28,3 +28,19 @@ export const ContactStructure = object({
     'none',
   ]),
 });
+
+export const ContactFieldsValidations = {
+  [FORM_FIELDS.NAME]: string(),
+  [FORM_FIELDS.EMAIL]: pattern(
+    string(),
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+  ),
+  [FORM_FIELDS.PHONE]: pattern(string(), /\([0-9]{2}\) 9[0-9]{4}-[0-9]{4}/),
+  [FORM_FIELDS.CATEGORY]: enums([
+    'instagram',
+    'facebook',
+    'whatsapp',
+    'telegram',
+    'none',
+  ]),
+};
