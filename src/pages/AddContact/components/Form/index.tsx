@@ -1,8 +1,5 @@
-import {
-  ContactFieldsValidations,
-  FIELDS_PLACEHOLDERS,
-  FORM_FIELDS,
-} from './constants';
+import { FIELDS_PLACEHOLDERS, FORM_FIELDS } from './constants';
+import { useForm } from './hooks/useForm';
 import {
   AddContactButton,
   ErrorMessage,
@@ -11,71 +8,13 @@ import {
   SelectOption,
   TextInput,
 } from './styles';
-import { FormDataType, Props } from './types';
-import React, { TargetedEvent } from 'preact/compat';
-import { useCallback, useMemo, useState } from 'preact/hooks';
-import { StructError } from 'superstruct';
+import { Props } from './types';
+import React from 'preact/compat';
 
 const Form: React.FC<Props> = ({ onSubmit }) => {
-  const [formData, setFormData] = useState<FormDataType>({});
-  const [errors, setErrors] = useState<
-    Partial<Record<typeof FORM_FIELDS[keyof typeof FORM_FIELDS], string | null>>
-  >({});
-
-  const isFormValid = useMemo(
-    () =>
-      Object.values(formData).length === 4 &&
-      Object.values(errors).every((item) => !item),
-    [errors, formData],
-  );
-
-  const onInput = useCallback(
-    (
-      e: TargetedEvent<HTMLInputElement | HTMLSelectElement, Event>,
-      key: keyof FormDataType,
-    ) => {
-      if (e.target && 'value' in e.target) {
-        const value = e.target.value;
-
-        if (typeof value === 'string') {
-          try {
-            ContactFieldsValidations[key].assert(value);
-
-            setErrors((state) => ({
-              ...state,
-              [key]: null,
-            }));
-          } catch (err) {
-            if (err instanceof StructError) {
-              const ErrorsByFields = {
-                [FORM_FIELDS.EMAIL]: 'Email inválido',
-                [FORM_FIELDS.PHONE]: 'Telefone inválido',
-                [FORM_FIELDS.CATEGORY]: 'Categoria inválida',
-                [FORM_FIELDS.NAME]: 'Nome inválido',
-              };
-
-              setErrors((state) => ({
-                ...state,
-                [key]: ErrorsByFields[key],
-              }));
-            }
-          } finally {
-            setFormData((state) => ({
-              ...state,
-              [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : value,
-            }));
-          }
-        }
-      }
-    },
-    [],
-  );
-
-  const onClick = useCallback(() => {
-    if (isFormValid) {
-      onSubmit(formData);
-    }
-  }, [formData, onSubmit, isFormValid]);
+  const { errors, formData, isFormValid, onCreate, onInput } = useForm({
+    onSubmit,
+  });
 
   return (
     <FormContainer>
@@ -137,7 +76,11 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
           </>
         );
       })}
-      <AddContactButton disabled={!isFormValid} type='button' onClick={onClick}>
+      <AddContactButton
+        disabled={!isFormValid}
+        type='button'
+        onClick={onCreate}
+      >
         Cadastrar
       </AddContactButton>
     </FormContainer>
