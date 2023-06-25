@@ -5,6 +5,7 @@ import {
 } from './constants';
 import {
   AddContactButton,
+  ErrorMessage,
   FormContainer,
   SelectInput,
   SelectOption,
@@ -22,8 +23,10 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
   >({});
 
   const isFormValid = useMemo(
-    () => Object.values(errors).some((item) => !!item),
-    [errors],
+    () =>
+      Object.values(formData).length === 4 &&
+      Object.values(errors).every((item) => !item),
+    [errors, formData],
   );
 
   const onInput = useCallback(
@@ -79,47 +82,59 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
       {Object.entries(FORM_FIELDS).map(([key, value]) => {
         if (value === FORM_FIELDS.CATEGORY) {
           return (
-            <SelectInput
-              title={value}
-              onInput={(e) => onInput(e, value)}
-              name={value}
-              value={formData[value]}
-              hasError={!!errors[value]}
-            >
-              <SelectOption
-                value=''
-                disabled={true}
-                selected={true}
-                hidden={true}
+            <>
+              <SelectInput
+                title={value}
+                onInput={(e) => onInput(e, value)}
+                name={value}
+                value={formData[value]}
+                hasError={!!errors[value]}
               >
-                Categoria
-              </SelectOption>
-              <SelectOption value='instagram'>Instagram</SelectOption>
-              <SelectOption value='facebook'>Facebook</SelectOption>
-              <SelectOption value='whatsapp'>Whatsapp</SelectOption>
-              <SelectOption value='telegram'>Telegram</SelectOption>
-              <SelectOption value='none'>Nenhum</SelectOption>
-            </SelectInput>
+                <SelectOption
+                  value=''
+                  disabled={true}
+                  selected={true}
+                  hidden={true}
+                >
+                  Categoria
+                </SelectOption>
+                <SelectOption value='instagram'>Instagram</SelectOption>
+                <SelectOption value='facebook'>Facebook</SelectOption>
+                <SelectOption value='whatsapp'>Whatsapp</SelectOption>
+                <SelectOption value='telegram'>Telegram</SelectOption>
+                <SelectOption value='none'>Nenhum</SelectOption>
+              </SelectInput>
+
+              {errors[value] ? (
+                <ErrorMessage>{errors[value]}</ErrorMessage>
+              ) : null}
+            </>
           );
         }
 
         return (
-          <TextInput
-            key={value}
-            title={value}
-            type={value === FORM_FIELDS.EMAIL ? 'email' : 'text'}
-            name={value}
-            hasError={!!errors[value]}
-            value={formData[value]}
-            onInput={(e) => onInput(e, value)}
-            placeholder={
-              FIELDS_PLACEHOLDERS[
-                FORM_FIELDS[
-                  key as Exclude<keyof typeof FORM_FIELDS, 'CATEGORY'>
+          <>
+            <TextInput
+              key={value}
+              title={value}
+              type={value === FORM_FIELDS.EMAIL ? 'email' : 'text'}
+              name={value}
+              hasError={!!errors[value]}
+              value={formData[value]}
+              onInput={(e) => onInput(e, value)}
+              placeholder={
+                FIELDS_PLACEHOLDERS[
+                  FORM_FIELDS[
+                    key as Exclude<keyof typeof FORM_FIELDS, 'CATEGORY'>
+                  ]
                 ]
-              ]
-            }
-          />
+              }
+            />
+
+            {errors[value] ? (
+              <ErrorMessage>{errors[value]}</ErrorMessage>
+            ) : null}
+          </>
         );
       })}
       <AddContactButton disabled={!isFormValid} type='button' onClick={onClick}>

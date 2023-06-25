@@ -59,6 +59,11 @@ const SelectOption = getStyled<HTMLAttributes<HTMLOptionElement>>('option', {
   color: '$dark',
 });
 
+const ErrorMessage = getStyled('span', {
+  color: '$tertiary',
+  fontSize: '$shorter',
+});
+
 const AddContactButton = getStyled<HTMLAttributes<HTMLButtonElement>>(
   'button',
   {
@@ -81,6 +86,7 @@ const AddContactButton = getStyled<HTMLAttributes<HTMLButtonElement>>(
 );
 
 export {
+  ErrorMessage,
   FormContainer,
   TextInput,
   SelectInput,
