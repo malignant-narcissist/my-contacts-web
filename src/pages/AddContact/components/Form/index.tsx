@@ -22,7 +22,7 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
 
   return (
     <FormContainer>
-      {Object.entries(FORM_FIELDS).map(([key, value]) => {
+      {Object.values(FORM_FIELDS).map((value) => {
         if (value === FORM_FIELDS.CATEGORY) {
           return (
             <>
@@ -51,7 +51,6 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
                   );
                 })}
               </SelectInput>
-
               {errors[value] ? (
                 <ErrorMessage>{errors[value]}</ErrorMessage>
               ) : null}
@@ -69,13 +68,7 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
               hasError={!!errors[value]}
               value={formData[value]}
               onInput={(e) => onInput(e, value)}
-              placeholder={
-                FIELDS_PLACEHOLDERS[
-                  FORM_FIELDS[
-                    key as Exclude<keyof typeof FORM_FIELDS, 'CATEGORY'>
-                  ]
-                ]
-              }
+              placeholder={FIELDS_PLACEHOLDERS[value]}
             />
 
             {errors[value] ? (
