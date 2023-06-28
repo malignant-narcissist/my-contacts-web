@@ -28,3 +28,30 @@ export const ContactFieldsValidations = {
     'none',
   ]),
 };
+
+export const SocialMediaSelectionOptionsList = [
+  {
+    value: 'instagram',
+    label: 'Instagram',
+  },
+  {
+    value: 'facebook',
+    label: 'Facebook',
+  },
+  {
+    value: 'whatsapp',
+    label: 'Whatsapp',
+  },
+  {
+    value: 'telegram',
+    label: 'Telegram',
+  },
+  {
+    value: 'none',
+    label: 'Nenhum',
+  },
+  {
+    value: '',
+    label: 'Categoria',
+  },
+] as const;
