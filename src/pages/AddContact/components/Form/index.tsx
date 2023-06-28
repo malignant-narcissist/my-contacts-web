@@ -1,4 +1,8 @@
-import { FIELDS_PLACEHOLDERS, FORM_FIELDS } from './constants';
+import {
+  SocialMediaSelectionOptionsList,
+  FIELDS_PLACEHOLDERS,
+  FORM_FIELDS,
+} from './constants';
 import { useForm } from './hooks/useForm';
 import {
   AddContactButton,
@@ -9,7 +13,7 @@ import {
   TextInput,
 } from './styles';
 import { Props } from './types';
-import React from 'preact/compat';
+import React, { ComponentProps } from 'preact/compat';
 
 const Form: React.FC<Props> = ({ onSubmit }) => {
   const { errors, formData, isFormValid, onCreate, onInput } = useForm({
@@ -29,19 +33,23 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
                 value={formData[value]}
                 hasError={!!errors[value]}
               >
-                <SelectOption
-                  value=''
-                  disabled={true}
-                  selected={true}
-                  hidden={true}
-                >
-                  Categoria
-                </SelectOption>
-                <SelectOption value='instagram'>Instagram</SelectOption>
-                <SelectOption value='facebook'>Facebook</SelectOption>
-                <SelectOption value='whatsapp'>Whatsapp</SelectOption>
-                <SelectOption value='telegram'>Telegram</SelectOption>
-                <SelectOption value='none'>Nenhum</SelectOption>
+                {SocialMediaSelectionOptionsList.map((option) => {
+                  const props = (
+                    option.value === ''
+                      ? {
+                          disabled: true,
+                          selected: true,
+                          hidden: true,
+                        }
+                      : {}
+                  ) satisfies ComponentProps<typeof SelectOption>;
+
+                  return (
+                    <SelectOption value={option.value} {...props}>
+                      {option.label}
+                    </SelectOption>
+                  );
+                })}
               </SelectInput>
 
               {errors[value] ? (
