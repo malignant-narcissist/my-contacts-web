@@ -2,10 +2,10 @@ import { HeaderImage } from './assets';
 import { ContactList } from './components/ContactList';
 import { SearchBar } from './components/SearchBar';
 import { Container, ContentContainer, Header } from './styles';
-import { useState } from 'preact/hooks';
+import { useSignal } from '@preact/signals';
 
 const Home = () => {
-  const [filterName, setFilterName] = useState<string>();
+  const filterName = useSignal<string | undefined>(undefined);
 
   return (
     <Container>
@@ -19,7 +19,7 @@ const Home = () => {
               'value' in e.target &&
               typeof e.target.value === 'string'
             ) {
-              setFilterName(e.target.value);
+              filterName.value = e.target.value;
             }
           }}
         />

@@ -2,7 +2,6 @@ import { Contact } from '../../shared/entities/Contact';
 import { editContactService } from '../../shared/services/contacts/editContactsService';
 import { useContactStore } from '../../shared/stores/contacts.store';
 import { HeaderImage } from '../Home/assets';
-// import { CardType } from '../Home/components/ContactList/hooks/types';
 import ArrowBackIcon from './assets/arrow-left.svg';
 import { Form } from './components/Form';
 import {
@@ -13,41 +12,41 @@ import {
   Header,
   TitleText,
 } from './styles';
-import React from 'preact/compat';
-import { useCallback, useMemo } from 'preact/hooks';
+import { ReadonlySignal, useComputed, useSignal } from '@preact/signals';
+import React, { useEffect } from 'preact/compat';
 
 export type Props = {
   contactId: string;
 };
 
 const EditContact: React.FC<Props> = ({ contactId }) => {
-  const { contacts } = useContactStore();
+  const { contacts: contactsFromStore } = useContactStore();
 
-  const contactData = useMemo(
-    () => contacts.get(contactId),
-    [contactId, contacts],
-  );
+  const contacts = useSignal(contactsFromStore);
 
-  const goBack = useCallback(() => {
+  useEffect(() => {
+    contacts.value = contactsFromStore;
+  }, [contactsFromStore]);
+
+  const contactData = useComputed(() => contacts.value.get(contactId));
+
+  const goBack = () => {
     window.history.back();
-  }, []);
+  };
 
-  const onFormSubmit = useCallback(
-    async (data: Omit<Contact, 'id'>) => {
-      try {
-        if (data && contactData?.id) {
-          await editContactService({ ...data, id: contactData.id });
+  const onFormSubmit = async (data: Omit<Contact, 'id'>) => {
+    try {
+      if (data && contactData?.value?.id) {
+        await editContactService({ ...data, id: contactData.value.id });
 
-          goBack();
-        }
-      } catch (error) {
-        console.error(error);
+        goBack();
       }
-    },
-    [contactData, goBack],
-  );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  if (!contactData) {
+  if (!contactData.value) {
     return null;
   }
 
@@ -58,8 +57,13 @@ const EditContact: React.FC<Props> = ({ contactId }) => {
         <GoBackButton onClick={goBack} type='button'>
           <GoBackButtonIcon alt='arrow-back' src={ArrowBackIcon} /> Voltar
         </GoBackButton>
-        <TitleText>Editar {contactData?.name}</TitleText>
-        <Form data={contactData} onSubmit={onFormSubmit} />
+        <TitleText>Editar {contactData?.value?.name}</TitleText>
+        {contactData.value && (
+          <Form
+            data={contactData as ReadonlySignal<Contact>}
+            onSubmit={onFormSubmit}
+          />
+        )}
       </ContentContainer>
     </Container>
   );

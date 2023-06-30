@@ -1,7 +1,7 @@
 import {
-  SocialMediaSelectionOptionsList,
   FIELDS_PLACEHOLDERS,
   FORM_FIELDS,
+  SocialMediaSelectionOptionsList,
 } from './constants';
 import { useForm } from './hooks/useForm';
 import {
@@ -30,8 +30,8 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
                 title={value}
                 onInput={(e) => onInput(e, value)}
                 name={value}
-                value={formData[value]}
-                hasError={!!errors[value]}
+                value={formData.value[value]}
+                hasError={!!errors.value[value]}
               >
                 {SocialMediaSelectionOptionsList.map((option) => {
                   const props = (
@@ -51,8 +51,8 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
                   );
                 })}
               </SelectInput>
-              {errors[value] ? (
-                <ErrorMessage>{errors[value]}</ErrorMessage>
+              {errors.value[value] ? (
+                <ErrorMessage>{errors.value[value]}</ErrorMessage>
               ) : null}
             </>
           );
@@ -65,14 +65,14 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
               title={value}
               type={value === FORM_FIELDS.EMAIL ? 'email' : 'text'}
               name={value}
-              hasError={!!errors[value]}
-              value={formData[value]}
+              hasError={!!errors.value[value]}
+              value={formData.value[value]}
               onInput={(e) => onInput(e, value)}
               placeholder={FIELDS_PLACEHOLDERS[value]}
             />
 
-            {errors[value] ? (
-              <ErrorMessage>{errors[value]}</ErrorMessage>
+            {errors.value[value] ? (
+              <ErrorMessage>{errors.value[value]}</ErrorMessage>
             ) : null}
           </>
         );

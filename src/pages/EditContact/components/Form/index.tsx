@@ -8,44 +8,40 @@ import {
   TextInput,
 } from './styles';
 import { FormDataState, Props } from './types';
+import { useComputed, useSignal } from '@preact/signals';
 import React, { TargetedEvent } from 'preact/compat';
-import { useCallback, useMemo, useState } from 'preact/hooks';
 
-const Form: React.FC<Props> = ({ onSubmit, data: { id, ...data } }) => {
-  const [formData, setFormData] = useState<FormDataState>({
-    ...data,
-    category: data.socialMedia,
+const Form: React.FC<Props> = ({ onSubmit, data }) => {
+  const formData = useSignal<FormDataState>({
+    ...data.value,
+    category: data.value.socialMedia,
   });
 
-  const isFormValid = useMemo(() => {
-    const formDataValues = Object.values(formData);
+  const isFormValid = useComputed(() => {
+    const values = Object.values(formData.value);
 
-    return (
-      formDataValues.length === 4 && formDataValues.every((item) => !!item)
-    );
-  }, [formData]);
+    return values.length === 4 && values.every((item) => !!item);
+  });
 
-  const onInput = useCallback(
-    (
-      e: TargetedEvent<HTMLInputElement | HTMLSelectElement, Event>,
-      key: keyof FormDataState,
-    ) => {
-      if (e.target && 'value' in e.target) {
-        const value = e.target.value;
+  const onInput: (
+    e: TargetedEvent<HTMLInputElement | HTMLSelectElement, Event>,
+    key: keyof FormDataState,
+  ) => void = (e, key) => {
+    if (e.target && 'value' in e.target) {
+      const value = e.target.value;
 
-        typeof value === 'string' &&
-          setFormData((state) => ({
-            ...state,
-            [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : value,
-          }));
+      if (typeof value === 'string') {
+        formData.value = {
+          ...formData.value,
+          [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : value,
+        };
       }
-    },
-    [],
-  );
+    }
+  };
 
-  const onClick = useCallback(() => {
-    onSubmit(formData as Omit<Contact, 'id'>);
-  }, [formData, onSubmit]);
+  const onAddContact = () => {
+    onSubmit(formData.value as Omit<Contact, 'id'>);
+  };
 
   return (
     <FormContainer>
@@ -56,7 +52,7 @@ const Form: React.FC<Props> = ({ onSubmit, data: { id, ...data } }) => {
               title={value}
               onInput={(e) => onInput(e, value)}
               name={value}
-              value={formData[value]}
+              value={formData['value'][value]}
             >
               <SelectOption
                 value=''
@@ -81,7 +77,7 @@ const Form: React.FC<Props> = ({ onSubmit, data: { id, ...data } }) => {
             title={value}
             type='text'
             name={value}
-            value={formData[value]}
+            value={formData['value'][value]}
             onInput={(e) => onInput(e, value)}
             placeholder={
               FIELDS_PLACEHOLDERS[
@@ -93,7 +89,11 @@ const Form: React.FC<Props> = ({ onSubmit, data: { id, ...data } }) => {
           />
         );
       })}
-      <AddContactButton disabled={!isFormValid} type='button' onClick={onClick}>
+      <AddContactButton
+        disabled={!isFormValid}
+        type='button'
+        onClick={onAddContact}
+      >
         Salvar alterações
       </AddContactButton>
     </FormContainer>

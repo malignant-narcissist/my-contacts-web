@@ -1,9 +1,10 @@
 import { SearchWithoutResultsImage } from '../../assets';
 import { BoldText, Container, Image, Text } from './styles';
+import { Signal } from '@preact/signals';
 import React from 'preact/compat';
 
 type Props = {
-  filterName?: string;
+  filterName?: Signal<string | undefined>;
 };
 
 const NoContactsFound: React.FC<Props> = ({ filterName }) => {
@@ -14,8 +15,8 @@ const NoContactsFound: React.FC<Props> = ({ filterName }) => {
         alt='Imagem de uma lupa com um X vermelho'
       />
       <Text>
-        Nenhum resultado foi encontrado para{' '}
-        <BoldText>{`”${filterName}”`}</BoldText>.
+        Nenhum resultado foi encontrado para <BoldText>”{filterName}”</BoldText>
+        .
       </Text>
     </Container>
   );

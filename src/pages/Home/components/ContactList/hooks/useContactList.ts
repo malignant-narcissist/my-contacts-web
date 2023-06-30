@@ -1,111 +1,116 @@
-import { Contact } from '../../../../../shared/entities/Contact.ts';
 import { useModalContainer } from '../../../../../shared/hooks/useModal.tsx';
 import { listContactsService } from '../../../../../shared/services/contacts/listContactsService';
 import { removeContactService } from '../../../../../shared/services/contacts/removeContactService.ts';
 import { useContactStore } from '../../../../../shared/stores/contacts.store';
 import { RemoveContactModal } from '../../modals/RemoveContactModal';
-import { OrderAscReducerFunctionType } from './types';
 import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useReducer,
-  useState,
-} from 'preact/hooks';
+  Signal,
+  useComputed,
+  useSignal,
+  useSignalEffect,
+} from '@preact/signals';
+import { useEffect } from 'preact/hooks';
 import { useLocation } from 'wouter-preact';
 
-const orderAscReducer: OrderAscReducerFunctionType = (state) => {
-  return state === 'ASC' ? 'DESC' : 'ASC';
-};
-
-const useContactList = (filterName?: string) => {
-  const { contacts, edit, remove, reset } = useContactStore();
+const useContactList = (filterName?: Signal<string | undefined>) => {
+  const {
+    contacts: contactsFromStore,
+    edit,
+    remove,
+    reset,
+  } = useContactStore();
   const { close, open } = useModalContainer();
   const [, navigate] = useLocation();
 
-  const [hasError, setHasError] = useState(false);
-  const [orderAsc, toggleOrderAsc] = useReducer(orderAscReducer, 'ASC');
+  const contacts = useSignal(contactsFromStore);
+  const orderAsc = useSignal<'ASC' | 'DESC'>('ASC');
+  const hasError = useSignal(false);
 
-  const updateContactsList = useCallback(async () => {
+  useEffect(() => {
+    contacts.value = contactsFromStore;
+  }, [contactsFromStore]);
+
+  const goToAddContact = () => {
+    navigate('/add');
+  };
+
+  const toggleOrderAsc = () => {
+    orderAsc.value = orderAsc.value === 'ASC' ? 'DESC' : 'ASC';
+  };
+
+  const displayableList = useComputed(() => {
+    return [...contacts.value.values()].sort((a, b) => {
+      if (a.name === b.name) {
+        return 0;
+      }
+
+      if (orderAsc.value === 'ASC') {
+        return a.name < b.name ? -1 : 1;
+      }
+
+      return a.name > b.name ? -1 : 1;
+    });
+  });
+
+  const mustShow = useComputed<'error' | 'empty' | 'list' | 'emptyWithFilter'>(
+    () => {
+      if (hasError.value) {
+        return 'error';
+      }
+
+      if (displayableList.value.length > 0) {
+        return 'list';
+      }
+
+      return filterName?.value ? 'emptyWithFilter' : 'empty';
+    },
+  );
+
+  const updateContactsList = async () => {
     try {
       const list = await listContactsService({
-        filters: filterName
+        filters: filterName?.value
           ? {
-              name: filterName,
+              name: filterName.value,
             }
           : {},
       });
 
       reset(list);
 
-      setHasError(false);
+      hasError.value = false;
     } catch {
-      setHasError(true);
+      hasError.value = true;
     }
-  }, [reset, filterName]);
+  };
 
-  useEffect(() => {
+  useSignalEffect(() => {
     updateContactsList();
-  }, [updateContactsList]);
+  });
 
-  const displayableList = useMemo<Contact[]>(() => {
-    return [...contacts.values()].sort((a, b) => {
-      if (a.name === b.name) {
-        return 0;
-      }
+  const removeContact = async (id: string) => {
+    const contactToRemove = contacts.value.get(id);
 
-      if (orderAsc === 'ASC') {
-        return a.name < b.name ? -1 : 1;
-      }
+    if (contactToRemove) {
+      const element = RemoveContactModal({
+        name: contactToRemove.name,
+        onCancel: close,
+        async onDelete() {
+          try {
+            await removeContactService(id);
 
-      return a.name > b.name ? -1 : 1;
-    });
-  }, [contacts, orderAsc]);
+            remove(id);
 
-  const goToAddContact = useCallback(() => {
-    navigate('/add');
-  }, [navigate]);
+            close();
+          } catch (err) {
+            console.error(err);
+          }
+        },
+      });
 
-  const mustShow = useMemo<
-    'error' | 'empty' | 'list' | 'emptyWithFilter'
-  >(() => {
-    if (hasError) {
-      return 'error';
+      element && open(element);
     }
-
-    if (displayableList.length > 0) {
-      return 'list';
-    }
-
-    return filterName ? 'emptyWithFilter' : 'empty';
-  }, [hasError, displayableList.length, filterName]);
-
-  const removeContact = useCallback(
-    async (id: string) => {
-      const contactToEdit = contacts.get(id);
-
-      if (contactToEdit) {
-        const element = RemoveContactModal({
-          name: contactToEdit.name,
-          onCancel: close,
-          async onDelete() {
-            try {
-              await removeContactService(id);
-
-              remove(id);
-
-              close();
-            } catch (err) {
-              console.error(err);
-            }
-          },
-        });
-
-        element && open(element);
-      }
-    },
-    [open, contacts, close, remove],
-  );
+  };
 
   return {
     orderAsc,

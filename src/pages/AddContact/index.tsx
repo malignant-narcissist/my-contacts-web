@@ -13,31 +13,27 @@ import {
   TitleText,
 } from './styles';
 import React from 'preact/compat';
-import { useCallback } from 'preact/hooks';
 import { useLocation } from 'wouter-preact';
 
 const AddContact: React.FC = () => {
   const [, setLocation] = useLocation();
   const { add } = useContactStore();
 
-  const goBack = useCallback(() => {
+  const goBack = () => {
     window.history.back();
-  }, []);
+  };
 
-  const onFormSubmit = useCallback(
-    async (data: FormDataType) => {
-      try {
-        const contact = await createContactService(data);
+  const onFormSubmit = async (data: FormDataType) => {
+    try {
+      const contact = await createContactService(data);
 
-        add(contact);
+      add(contact);
 
-        setLocation('/');
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    [setLocation, add],
-  );
+      setLocation('/');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <Container>

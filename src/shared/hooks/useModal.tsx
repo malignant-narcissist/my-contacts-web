@@ -1,6 +1,7 @@
+import { useSignal, useSignalEffect } from '@preact/signals';
 import { JSX, createContext } from 'preact';
 import React, { createPortal } from 'preact/compat';
-import { useContext, useEffect, useMemo, useState } from 'preact/hooks';
+import { useContext } from 'preact/hooks';
 
 interface ModalContextData {
   open(data: JSX.Element): void;
@@ -11,9 +12,9 @@ const ModalContext = createContext<ModalContextData>({} as ModalContextData);
 
 const ModalProvider: React.FC = ({ children }) => {
   const modalContainerElement = document.getElementById('modal-container');
-  const [modal, setModal] = useState<JSX.Element | null>(null);
+  const modal = useSignal<JSX.Element | null>(null);
 
-  useEffect(() => {
+  useSignalEffect(() => {
     if (modalContainerElement?.style) {
       const modalContainerElementEntries: [
         keyof CSSStyleDeclaration,
@@ -33,7 +34,7 @@ const ModalProvider: React.FC = ({ children }) => {
           string
         >;
 
-      if (modal) {
+      if (modal.value) {
         modalContainerElementEntries.forEach((item) => {
           modalContainerElementStyle[item[0]] = item[1];
         });
@@ -43,26 +44,23 @@ const ModalProvider: React.FC = ({ children }) => {
         });
       }
     }
-  }, [modal]);
-
-  const providerValues = useMemo<ModalContextData>(
-    () => ({
-      open(data: JSX.Element) {
-        setModal(data);
-      },
-      close() {
-        setModal(null);
-      },
-    }),
-    [],
-  );
+  });
 
   return (
-    <ModalContext.Provider value={providerValues}>
+    <ModalContext.Provider
+      value={{
+        close() {
+          modal.value = null;
+        },
+        open(data) {
+          modal.value = data;
+        },
+      }}
+    >
       {children}
       {modalContainerElement &&
-        modal &&
-        createPortal(modal, modalContainerElement)}
+        modal.value &&
+        createPortal(modal.value, modalContainerElement)}
     </ModalContext.Provider>
   );
 };
