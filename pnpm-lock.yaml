@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@preact/signals':
+    specifier: ^1.1.4
+    version: 1.1.4(preact@10.15.1)
   '@stitches/react':
     specifier: ^1.2.8
     version: 1.2.8(react@18.2.0)
@@ -571,6 +574,19 @@ packages:
       - preact
       - supports-color
     dev: true
+
+  /@preact/signals-core@1.3.1:
+    resolution: {integrity: sha512-DL+3kDssZ3UOMz9HufwSYE/gK0+TnT1jzegfF5rstgyPrnyfjz4BHAoxmzQA6Mkp4UlKe8qjsgl3v5a/obzNig==}
+    dev: false
+
+  /@preact/signals@1.1.4(preact@10.15.1):
+    resolution: {integrity: sha512-4s0U8yHfy6OzBjTx8lgG0JZGFq1y+ye7xLmaaI8SXyJ5p+jAtMKW40Mg3GDLISM5WyKnqbfrQ4SOmbq1VTBtTw==}
+    peerDependencies:
+      preact: 10.x
+    dependencies:
+      '@preact/signals-core': 1.3.1
+      preact: 10.15.1
+    dev: false
 
   /@prefresh/babel-plugin@0.5.0:
     resolution: {integrity: sha512-joAwpkUDwo7ZqJnufXRGzUb+udk20RBgfA8oLPBh5aJH2LeStmV1luBfeJTztPdyCscC2j2SmZ/tVxFRMIxAEw==}
