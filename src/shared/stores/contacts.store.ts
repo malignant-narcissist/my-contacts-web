@@ -1,5 +1,4 @@
 import { Contact } from '../entities/Contact';
-// import { CardType } from '../../pages/Home/components/ContactList/hooks/types';
 import { produce } from 'immer';
 import { create } from 'zustand';
 
