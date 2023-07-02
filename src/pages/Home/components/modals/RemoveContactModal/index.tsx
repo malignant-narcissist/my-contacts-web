@@ -1,4 +1,4 @@
-import { Button, ButtonArea, Card, Container, Text, Title } from './styles';
+import * as styles from './styles';
 import React from 'preact/compat';
 
 type Props = {
@@ -9,21 +9,23 @@ type Props = {
 
 const RemoveContactModal: React.FC<Props> = ({ name, onCancel, onDelete }) => {
   return (
-    <Container>
-      <Card>
-        <Title>Tem certeza que deseja remover o contato ”{name}”?</Title>
-        <Text>Esta ação não poderá ser desfeita!</Text>
+    <styles.Container>
+      <styles.Card>
+        <styles.Title>
+          Tem certeza que deseja remover o contato ”{name}”?
+        </styles.Title>
+        <styles.Text>Esta ação não poderá ser desfeita!</styles.Text>
 
-        <ButtonArea>
-          <Button onClick={onCancel} styleType='secondary'>
+        <styles.ButtonArea>
+          <styles.Button onClick={onCancel} styleType='secondary'>
             Cancelar
-          </Button>
-          <Button onClick={onDelete} styleType='primary'>
+          </styles.Button>
+          <styles.Button onClick={onDelete} styleType='primary'>
             Deletar
-          </Button>
-        </ButtonArea>
-      </Card>
-    </Container>
+          </styles.Button>
+        </styles.ButtonArea>
+      </styles.Card>
+    </styles.Container>
   );
 };
 

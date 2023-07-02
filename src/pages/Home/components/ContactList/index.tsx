@@ -4,16 +4,7 @@ import { ErrorWarning } from '../ErrorWarning';
 import { NoContactsFound } from '../NoContactsFound';
 import { Card } from './Card';
 import { useContactList } from './hooks';
-import {
-  Container,
-  HeaderArea,
-  HeaderAreaContactCountText,
-  HeaderAreaCreateContactButton,
-  ListArea,
-  ListCardContainer,
-  ListOrderButton,
-  ListOrderIcon,
-} from './styles';
+import * as styles from './styles';
 import { Signal, useSignalEffect } from '@preact/signals';
 import React from 'preact/compat';
 import { useLocation } from 'wouter-preact';
@@ -38,36 +29,36 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
   });
 
   return (
-    <Container>
-      <HeaderArea>
+    <styles.Container>
+      <styles.HeaderArea>
         {mustShow.value === 'list' || mustShow.value === 'emptyWithFilter' ? (
-          <HeaderAreaContactCountText>
+          <styles.HeaderAreaContactCountText>
             {`${displayableList.value.length} contatos`}
-          </HeaderAreaContactCountText>
+          </styles.HeaderAreaContactCountText>
         ) : null}
-        <HeaderAreaCreateContactButton onClick={addContact}>
+        <styles.HeaderAreaCreateContactButton onClick={addContact}>
           Novo Contato
-        </HeaderAreaCreateContactButton>
-      </HeaderArea>
-      <ListArea>
+        </styles.HeaderAreaCreateContactButton>
+      </styles.HeaderArea>
+      <styles.ListArea>
         {mustShow.value === 'emptyWithFilter' ? (
           <NoContactsFound filterName={filterName} />
         ) : null}
         {mustShow.value === 'empty' ? <EmptyListWarning /> : null}
         {mustShow.value === 'error' || mustShow.value === 'list' ? (
           <>
-            <ListOrderButton
+            <styles.ListOrderButton
               orderAsc={orderAsc.value}
               onClick={toggleOrderAsc}
               type='button'
             >
-              Nome <ListOrderIcon src={ArrowUpIcon} />
-            </ListOrderButton>
+              Nome <styles.ListOrderIcon src={ArrowUpIcon} />
+            </styles.ListOrderButton>
 
             {mustShow.value === 'error' ? (
               <ErrorWarning onRetry={updateContactsList} />
             ) : (
-              <ListCardContainer>
+              <styles.ListCardContainer>
                 {displayableList.value.map((card) => (
                   <Card
                     key={card.id}
@@ -76,12 +67,12 @@ const ContactList: React.FC<Props> = ({ filterName }) => {
                     onRemove={() => removeContact(card.id)}
                   />
                 ))}
-              </ListCardContainer>
+              </styles.ListCardContainer>
             )}
           </>
         ) : null}
-      </ListArea>
-    </Container>
+      </styles.ListArea>
+    </styles.Container>
   );
 };
 

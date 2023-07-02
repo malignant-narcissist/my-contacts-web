@@ -1,16 +1,16 @@
 import { HeaderImage } from './assets';
 import { ContactList } from './components/ContactList';
 import { SearchBar } from './components/SearchBar';
-import { Container, ContentContainer, Header } from './styles';
+import * as styles from './styles';
 import { useSignal } from '@preact/signals';
 
 const Home = () => {
   const filterName = useSignal<string | undefined>(undefined);
 
   return (
-    <Container>
-      <Header src={HeaderImage} />
-      <ContentContainer>
+    <styles.Container>
+      <styles.Header src={HeaderImage} />
+      <styles.ContentContainer>
         <SearchBar
           value={filterName}
           onSearch={(e) => {
@@ -24,8 +24,8 @@ const Home = () => {
           }}
         />
         <ContactList filterName={filterName} />
-      </ContentContainer>
-    </Container>
+      </styles.ContentContainer>
+    </styles.Container>
   );
 };
 

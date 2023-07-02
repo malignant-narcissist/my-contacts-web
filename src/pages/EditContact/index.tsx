@@ -4,14 +4,7 @@ import { useContactStore } from '../../shared/stores/contacts.store';
 import { HeaderImage } from '../Home/assets';
 import ArrowBackIcon from './assets/arrow-left.svg';
 import { Form } from './components/Form';
-import {
-  Container,
-  ContentContainer,
-  GoBackButton,
-  GoBackButtonIcon,
-  Header,
-  TitleText,
-} from './styles';
+import * as styles from './styles';
 import { ReadonlySignal, useComputed, useSignal } from '@preact/signals';
 import React, { useEffect } from 'preact/compat';
 
@@ -51,21 +44,21 @@ const EditContact: React.FC<Props> = ({ contactId }) => {
   }
 
   return (
-    <Container>
-      <Header src={HeaderImage} />
-      <ContentContainer>
-        <GoBackButton onClick={goBack} type='button'>
-          <GoBackButtonIcon alt='arrow-back' src={ArrowBackIcon} /> Voltar
-        </GoBackButton>
-        <TitleText>Editar {contactData?.value?.name}</TitleText>
+    <styles.Container>
+      <styles.Header src={HeaderImage} />
+      <styles.ContentContainer>
+        <styles.GoBackButton onClick={goBack} type='button'>
+          <styles.GoBackButtonIcon alt='arrow-back' src={ArrowBackIcon} /> Voltar
+        </styles.GoBackButton>
+        <styles.TitleText>Editar {contactData?.value?.name}</styles.TitleText>
         {contactData.value && (
           <Form
             data={contactData as ReadonlySignal<Contact>}
             onSubmit={onFormSubmit}
           />
         )}
-      </ContentContainer>
-    </Container>
+      </styles.ContentContainer>
+    </styles.Container>
   );
 };
 

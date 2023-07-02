@@ -1,16 +1,6 @@
 import { Contact } from '../../../../../shared/entities/Contact';
 import { EditIcon, TrashIcon } from '../../../assets';
-import {
-  ButtonEdit,
-  ButtonImage,
-  ButtonRemove,
-  ContactName,
-  ContactPhone,
-  ContactSocialMedia,
-  Container,
-  ContentArea,
-  ContentRow,
-} from './styles';
+import * as styles from './styles';
 import React from 'preact/compat';
 
 type CardProps = Omit<Contact, 'id'> & {
@@ -27,27 +17,27 @@ const Card: React.FC<CardProps> = ({
   onRemove,
 }) => {
   return (
-    <Container>
-      <ContentArea>
-        <ContentRow>
-          <ContactName>{name}</ContactName>
+    <styles.Container>
+      <styles.ContentArea>
+        <styles.ContentRow>
+          <styles.ContactName>{name}</styles.ContactName>
           {socialMedia && (
-            <ContactSocialMedia>{socialMedia}</ContactSocialMedia>
+            <styles.ContactSocialMedia>{socialMedia}</styles.ContactSocialMedia>
           )}
-        </ContentRow>
-        <ContactPhone>{email}</ContactPhone>
-        <ContactPhone>{phone}</ContactPhone>
-      </ContentArea>
+        </styles.ContentRow>
+        <styles.ContactPhone>{email}</styles.ContactPhone>
+        <styles.ContactPhone>{phone}</styles.ContactPhone>
+      </styles.ContentArea>
 
-      <ContentArea>
-        <ButtonEdit onClick={onEdit}>
-          <ButtonImage src={EditIcon} />
-        </ButtonEdit>
-        <ButtonRemove onClick={onRemove}>
-          <ButtonImage src={TrashIcon} />
-        </ButtonRemove>
-      </ContentArea>
-    </Container>
+      <styles.ContentArea>
+        <styles.ButtonEdit onClick={onEdit}>
+          <styles.ButtonImage src={EditIcon} />
+        </styles.ButtonEdit>
+        <styles.ButtonRemove onClick={onRemove}>
+          <styles.ButtonImage src={TrashIcon} />
+        </styles.ButtonRemove>
+      </styles.ContentArea>
+    </styles.Container>
   );
 };
 

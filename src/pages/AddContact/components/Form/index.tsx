@@ -4,14 +4,7 @@ import {
   SocialMediaSelectionOptionsList,
 } from './constants';
 import { useForm } from './hooks/useForm';
-import {
-  AddContactButton,
-  ErrorMessage,
-  FormContainer,
-  SelectInput,
-  SelectOption,
-  TextInput,
-} from './styles';
+import * as styles from './styles';
 import { Props } from './types';
 import React, { ComponentProps } from 'preact/compat';
 
@@ -21,12 +14,12 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
   });
 
   return (
-    <FormContainer>
+    <styles.FormContainer>
       {Object.values(FORM_FIELDS).map((value) => {
         if (value === FORM_FIELDS.CATEGORY) {
           return (
             <>
-              <SelectInput
+              <styles.SelectInput
                 title={value}
                 onInput={(e) => onInput(e, value)}
                 name={value}
@@ -42,17 +35,17 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
                           hidden: true,
                         }
                       : {}
-                  ) satisfies ComponentProps<typeof SelectOption>;
+                  ) satisfies ComponentProps<typeof styles.SelectOption>;
 
                   return (
-                    <SelectOption value={option.value} {...props}>
+                    <styles.SelectOption value={option.value} {...props}>
                       {option.label}
-                    </SelectOption>
+                    </styles.SelectOption>
                   );
                 })}
-              </SelectInput>
+              </styles.SelectInput>
               {errors.value[value] ? (
-                <ErrorMessage>{errors.value[value]}</ErrorMessage>
+                <styles.ErrorMessage>{errors.value[value]}</styles.ErrorMessage>
               ) : null}
             </>
           );
@@ -60,7 +53,7 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
 
         return (
           <>
-            <TextInput
+            <styles.TextInput
               key={value}
               title={value}
               type={value === FORM_FIELDS.EMAIL ? 'email' : 'text'}
@@ -72,19 +65,19 @@ const Form: React.FC<Props> = ({ onSubmit }) => {
             />
 
             {errors.value[value] ? (
-              <ErrorMessage>{errors.value[value]}</ErrorMessage>
+              <styles.ErrorMessage>{errors.value[value]}</styles.ErrorMessage>
             ) : null}
           </>
         );
       })}
-      <AddContactButton
+      <styles.AddContactButton
         disabled={!isFormValid}
         type='button'
         onClick={onCreate}
       >
         Cadastrar
-      </AddContactButton>
-    </FormContainer>
+      </styles.AddContactButton>
+    </styles.FormContainer>
   );
 };
 

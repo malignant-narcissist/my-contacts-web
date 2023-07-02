@@ -1,12 +1,6 @@
 import { Contact } from '../../../../shared/entities/Contact';
 import { FIELDS_PLACEHOLDERS, FORM_FIELDS } from './constants';
-import {
-  AddContactButton,
-  FormContainer,
-  SelectInput,
-  SelectOption,
-  TextInput,
-} from './styles';
+import * as styles from './styles';
 import { FormDataState, Props } from './types';
 import { useComputed, useSignal } from '@preact/signals';
 import React, { TargetedEvent } from 'preact/compat';
@@ -44,35 +38,35 @@ const Form: React.FC<Props> = ({ onSubmit, data }) => {
   };
 
   return (
-    <FormContainer>
+    <styles.FormContainer>
       {Object.entries(FORM_FIELDS).map(([key, value]) => {
         if (value === FORM_FIELDS.CATEGORY) {
           return (
-            <SelectInput
+            <styles.SelectInput
               title={value}
               onInput={(e) => onInput(e, value)}
               name={value}
               value={formData['value'][value]}
             >
-              <SelectOption
+              <styles.SelectOption
                 value=''
                 disabled={true}
                 selected={true}
                 hidden={true}
               >
                 Categoria
-              </SelectOption>
-              <SelectOption value='instagram'>Instagram</SelectOption>
-              <SelectOption value='facebook'>Facebook</SelectOption>
-              <SelectOption value='whatsapp'>Whatsapp</SelectOption>
-              <SelectOption value='telegram'>Telegram</SelectOption>
-              <SelectOption value='none'>Nenhum</SelectOption>
-            </SelectInput>
+              </styles.SelectOption>
+              <styles.SelectOption value='instagram'>Instagram</styles.SelectOption>
+              <styles.SelectOption value='facebook'>Facebook</styles.SelectOption>
+              <styles.SelectOption value='whatsapp'>Whatsapp</styles.SelectOption>
+              <styles.SelectOption value='telegram'>Telegram</styles.SelectOption>
+              <styles.SelectOption value='none'>Nenhum</styles.SelectOption>
+            </styles.SelectInput>
           );
         }
 
         return (
-          <TextInput
+          <styles.TextInput
             key={value}
             title={value}
             type='text'
@@ -89,14 +83,14 @@ const Form: React.FC<Props> = ({ onSubmit, data }) => {
           />
         );
       })}
-      <AddContactButton
+      <styles.AddContactButton
         disabled={!isFormValid}
         type='button'
         onClick={onAddContact}
       >
         Salvar alterações
-      </AddContactButton>
-    </FormContainer>
+      </styles.AddContactButton>
+    </styles.FormContainer>
   );
 };
 

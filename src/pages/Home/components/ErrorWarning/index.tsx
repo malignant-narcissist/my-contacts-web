@@ -1,11 +1,5 @@
 import { SadFaceEmojiImage } from '../../assets';
-import {
-  Button,
-  Container,
-  ContentArea,
-  SadEmojiImage,
-  WarningText,
-} from './styles';
+import * as styles from './styles';
 import React from 'preact/compat';
 
 type Props = {
@@ -14,13 +8,15 @@ type Props = {
 
 const ErrorWarning: React.FC<Props> = ({ onRetry }) => {
   return (
-    <Container>
-      <SadEmojiImage src={SadFaceEmojiImage} alt='' />
-      <ContentArea>
-        <WarningText>Ocorreu um erro ao obter os seus contatos!</WarningText>
-        <Button onClick={onRetry}>Tentar novamente</Button>
-      </ContentArea>
-    </Container>
+    <styles.Container>
+      <styles.SadEmojiImage src={SadFaceEmojiImage} alt='' />
+      <styles.ContentArea>
+        <styles.WarningText>
+          Ocorreu um erro ao obter os seus contatos!
+        </styles.WarningText>
+        <styles.Button onClick={onRetry}>Tentar novamente</styles.Button>
+      </styles.ContentArea>
+    </styles.Container>
   );
 };
 
