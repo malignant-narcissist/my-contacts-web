@@ -2,7 +2,7 @@ import * as Stitches from '@stitches/react';
 import { createStitches } from '@stitches/react';
 import { JSX } from 'preact/jsx-runtime';
 
-export const { styled, getCssText, css, globalCss, theme, config } =
+export const { styled, getCssText, css, globalCss, theme, config, keyframes } =
   createStitches({
     theme: {
       fonts: {
