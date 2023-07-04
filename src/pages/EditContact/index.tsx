@@ -48,7 +48,8 @@ const EditContact: React.FC<Props> = ({ contactId }) => {
       <styles.Header src={HeaderImage} />
       <styles.ContentContainer>
         <styles.GoBackButton onClick={goBack} type='button'>
-          <styles.GoBackButtonIcon alt='arrow-back' src={ArrowBackIcon} /> Voltar
+          <styles.GoBackButtonIcon alt='arrow-back' src={ArrowBackIcon} />{' '}
+          Voltar
         </styles.GoBackButton>
         <styles.TitleText>Editar {contactData?.value?.name}</styles.TitleText>
         {contactData.value && (

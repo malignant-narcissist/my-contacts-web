@@ -56,10 +56,18 @@ const Form: React.FC<Props> = ({ onSubmit, data }) => {
               >
                 Categoria
               </styles.SelectOption>
-              <styles.SelectOption value='instagram'>Instagram</styles.SelectOption>
-              <styles.SelectOption value='facebook'>Facebook</styles.SelectOption>
-              <styles.SelectOption value='whatsapp'>Whatsapp</styles.SelectOption>
-              <styles.SelectOption value='telegram'>Telegram</styles.SelectOption>
+              <styles.SelectOption value='instagram'>
+                Instagram
+              </styles.SelectOption>
+              <styles.SelectOption value='facebook'>
+                Facebook
+              </styles.SelectOption>
+              <styles.SelectOption value='whatsapp'>
+                Whatsapp
+              </styles.SelectOption>
+              <styles.SelectOption value='telegram'>
+                Telegram
+              </styles.SelectOption>
               <styles.SelectOption value='none'>Nenhum</styles.SelectOption>
             </styles.SelectInput>
           );
