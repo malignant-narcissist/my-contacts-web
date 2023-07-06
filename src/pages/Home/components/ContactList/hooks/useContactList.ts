@@ -1,8 +1,7 @@
-import { useModalContainer } from '../../../../../shared/hooks/useModal.tsx';
 import { listContactsService } from '../../../../../shared/services/contacts/listContactsService';
 import { removeContactService } from '../../../../../shared/services/contacts/removeContactService.ts';
 import { useContactStore } from '../../../../../shared/stores/contacts.store';
-import { RemoveContactModal } from '../../modals/RemoveContactModal';
+import { RemoveContactModalProps } from '../../modals/RemoveContactModal';
 import {
   Signal,
   useComputed,
@@ -19,9 +18,12 @@ const useContactList = (filterName?: Signal<string | undefined>) => {
     remove,
     reset,
   } = useContactStore();
-  const { close, open } = useModalContainer();
+  const removeContactModalProps = useSignal<RemoveContactModalProps | null>(
+    null,
+  );
   const [, navigate] = useLocation();
 
+  const loading = useSignal(false);
   const contacts = useSignal(contactsFromStore);
   const orderAsc = useSignal<'ASC' | 'DESC'>('ASC');
   const hasError = useSignal(false);
@@ -67,6 +69,8 @@ const useContactList = (filterName?: Signal<string | undefined>) => {
   );
 
   const updateContactsList = async () => {
+    loading.value = true;
+
     try {
       const list = await listContactsService({
         filters: filterName?.value
@@ -81,6 +85,8 @@ const useContactList = (filterName?: Signal<string | undefined>) => {
       hasError.value = false;
     } catch {
       hasError.value = true;
+    } finally {
+      loading.value = false;
     }
   };
 
@@ -89,30 +95,31 @@ const useContactList = (filterName?: Signal<string | undefined>) => {
   });
 
   const removeContact = async (id: string) => {
-    const contactToRemove = contacts.value.get(id);
+    const contactToRemove = contacts.value.get(id) ?? null;
 
     if (contactToRemove) {
-      const element = RemoveContactModal({
+      removeContactModalProps.value = {
         name: contactToRemove.name,
-        onCancel: close,
-        async onDelete() {
-          try {
-            await removeContactService(id);
-
-            remove(id);
-
-            close();
-          } catch (err) {
-            console.error(err);
-          }
+        onCancel() {
+          removeContactModalProps.value = null;
         },
-      });
+        async onDelete() {
+          loading.value = true;
 
-      element && open(element);
+          await removeContactService(contactToRemove.id);
+
+          remove(contactToRemove.id);
+
+          removeContactModalProps.value = null;
+
+          loading.value = false;
+        },
+      };
     }
   };
 
   return {
+    loading,
     orderAsc,
     toggleOrderAsc,
     displayableList,
@@ -121,6 +128,7 @@ const useContactList = (filterName?: Signal<string | undefined>) => {
     mustShow,
     updateContactsList,
     removeContact,
+    removeContactModalProps,
   };
 };
 

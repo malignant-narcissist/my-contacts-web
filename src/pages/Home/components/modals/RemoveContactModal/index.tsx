@@ -30,3 +30,4 @@ const RemoveContactModal: React.FC<Props> = ({ name, onCancel, onDelete }) => {
 };
 
 export { RemoveContactModal };
+export type { Props as RemoveContactModalProps };
