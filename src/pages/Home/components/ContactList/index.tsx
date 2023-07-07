@@ -9,12 +9,12 @@ import { Card } from './Card';
 import { useContactList } from './hooks';
 import * as styles from './styles';
 import { Signal } from '@preact/signals';
-import React from 'preact/compat';
+import { FunctionComponent } from 'preact';
 import { useLocation } from 'wouter-preact';
 
 type Props = Record<'filterName', Signal<string | undefined>>;
 
-const ContactList: React.FC<Props> = ({ filterName }) => {
+const ContactList: FunctionComponent<Props> = ({ filterName }) => {
   const [, setLocation] = useLocation();
 
   const {

@@ -5,10 +5,10 @@ import ArrowBackIcon from './assets/arrow-left.svg';
 import { Form } from './components/Form';
 import { FormDataType } from './components/Form/types';
 import * as styles from './styles';
-import React from 'preact/compat';
+import { FunctionComponent } from 'preact';
 import { useLocation } from 'wouter-preact';
 
-const AddContact: React.FC = () => {
+const AddContact: FunctionComponent = () => {
   const [, setLocation] = useLocation();
   const { add } = useContactStore();
 

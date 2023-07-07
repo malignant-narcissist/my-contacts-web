@@ -1,7 +1,8 @@
 import { EmptyBoxImage as EmptyBoxImageSource } from '../../assets';
 import * as styles from './styles';
+import { FunctionComponent } from 'preact';
 
-const EmptyListWarning: React.FC = () => {
+const EmptyListWarning: FunctionComponent = () => {
   return (
     <styles.Container>
       <styles.EmptyBoxImage src={EmptyBoxImageSource} />

@@ -1,5 +1,6 @@
 import * as Stitches from '@stitches/react';
 import { createStitches } from '@stitches/react';
+import { FunctionComponent } from 'preact';
 import { JSX } from 'preact/jsx-runtime';
 
 export const { styled, getCssText, css, globalCss, theme, config, keyframes } =
@@ -37,9 +38,9 @@ export const { styled, getCssText, css, globalCss, theme, config, keyframes } =
 export type CSS = Stitches.CSS<typeof config>;
 
 export const getStyled = <Props extends {} = {}>(
-  type: keyof JSX.IntrinsicElements | React.FC,
+  type: keyof JSX.IntrinsicElements | FunctionComponent,
   ...composers: CSS[]
 ) =>
-  styled(type, ...composers) as React.FC<
-    Props & Stitches.ComponentProps<React.FC>
+  styled(type, ...composers) as FunctionComponent<
+    Props & Stitches.ComponentProps<FunctionComponent>
   >;

@@ -3,9 +3,9 @@ import { FIELDS_PLACEHOLDERS, FORM_FIELDS } from './constants';
 import * as styles from './styles';
 import { FormDataState, Props } from './types';
 import { useComputed, useSignal } from '@preact/signals';
-import React, { TargetedEvent } from 'preact/compat';
+import { FunctionComponent } from 'preact';
 
-const Form: React.FC<Props> = ({ onSubmit, data }) => {
+const Form: FunctionComponent<Props> = ({ onSubmit, data }) => {
   const formData = useSignal<FormDataState>({
     ...data.value,
     category: data.value.socialMedia,
@@ -18,7 +18,7 @@ const Form: React.FC<Props> = ({ onSubmit, data }) => {
   });
 
   const onInput: (
-    e: TargetedEvent<HTMLInputElement | HTMLSelectElement, Event>,
+    e: GlobalEventHandlersEventMap['input'],
     key: keyof FormDataState,
   ) => void = (e, key) => {
     if (e.target && 'value' in e.target) {

@@ -1,9 +1,10 @@
 import * as styles from './styles';
-import React, { HTMLAttributes } from 'preact/compat';
+import { FunctionComponent } from 'preact';
+import { HTMLAttributes } from 'preact/compat';
 
 type Props = Pick<HTMLAttributes<HTMLInputElement>, 'value' | 'onSearch'>;
 
-const SearchBar: React.FC<Props> = (props) => {
+const SearchBar: FunctionComponent<Props> = (props) => {
   return (
     <styles.Container>
       <styles.ControlledInput

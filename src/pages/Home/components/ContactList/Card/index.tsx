@@ -1,14 +1,14 @@
 import { Contact } from '../../../../../shared/entities/Contact';
 import { EditIcon, TrashIcon } from '../../../assets';
 import * as styles from './styles';
-import React from 'preact/compat';
+import { FunctionComponent } from 'preact';
 
 type CardProps = Omit<Contact, 'id'> & {
   onEdit: () => unknown;
   onRemove: () => unknown;
 };
 
-const Card: React.FC<CardProps> = ({
+const Card: FunctionComponent<CardProps> = ({
   name,
   socialMedia,
   email,

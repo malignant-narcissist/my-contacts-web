@@ -1,13 +1,13 @@
 import { SearchWithoutResultsImage } from '../../assets';
 import * as styles from './styles';
 import { Signal } from '@preact/signals';
-import React from 'preact/compat';
+import { FunctionComponent } from 'preact';
 
 type Props = {
   filterName?: Signal<string | undefined>;
 };
 
-const NoContactsFound: React.FC<Props> = ({ filterName }) => {
+const NoContactsFound: FunctionComponent<Props> = ({ filterName }) => {
   return (
     <styles.Container>
       <styles.Image

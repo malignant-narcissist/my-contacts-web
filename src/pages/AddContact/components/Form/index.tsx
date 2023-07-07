@@ -6,9 +6,9 @@ import {
 import { useForm } from './hooks/useForm';
 import * as styles from './styles';
 import { Props } from './types';
-import React, { ComponentProps } from 'preact/compat';
+import { ComponentProps, FunctionComponent } from 'preact';
 
-const Form: React.FC<Props> = ({ onSubmit }) => {
+const Form: FunctionComponent<Props> = ({ onSubmit }) => {
   const { errors, formData, isFormValid, onCreate, onInput } = useForm({
     onSubmit,
   });

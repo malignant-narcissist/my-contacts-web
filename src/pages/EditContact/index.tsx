@@ -6,13 +6,14 @@ import ArrowBackIcon from './assets/arrow-left.svg';
 import { Form } from './components/Form';
 import * as styles from './styles';
 import { ReadonlySignal, useComputed, useSignal } from '@preact/signals';
-import React, { useEffect } from 'preact/compat';
+import { FunctionComponent } from 'preact';
+import { useEffect } from 'preact/hooks';
 
 export type Props = {
   contactId: string;
 };
 
-const EditContact: React.FC<Props> = ({ contactId }) => {
+const EditContact: FunctionComponent<Props> = ({ contactId }) => {
   const { contacts: contactsFromStore } = useContactStore();
 
   const contacts = useSignal(contactsFromStore);

@@ -3,8 +3,9 @@ import { ContactList } from './components/ContactList';
 import { SearchBar } from './components/SearchBar';
 import * as styles from './styles';
 import { useSignal } from '@preact/signals';
+import { FunctionComponent } from 'preact';
 
-const Home = () => {
+const Home: FunctionComponent = () => {
   const filterName = useSignal<string | undefined>(undefined);
 
   return (

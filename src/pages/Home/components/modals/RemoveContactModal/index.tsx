@@ -1,5 +1,5 @@
 import * as styles from './styles';
-import React from 'preact/compat';
+import { FunctionComponent } from 'preact';
 
 type Props = {
   name: string;
@@ -7,7 +7,11 @@ type Props = {
   onDelete: () => Promise<unknown>;
 };
 
-const RemoveContactModal: React.FC<Props> = ({ name, onCancel, onDelete }) => {
+const RemoveContactModal: FunctionComponent<Props> = ({
+  name,
+  onCancel,
+  onDelete,
+}) => {
   return (
     <styles.Container>
       <styles.Card>
