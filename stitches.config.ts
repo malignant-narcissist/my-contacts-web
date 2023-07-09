@@ -18,6 +18,7 @@ export const { styled, getCssText, css, globalCss, theme, config, keyframes } =
         gray300: '#CCCCCC',
         gray200: '#E6E6E6',
         gray100: '#F6F5FC',
+        green: '#51CA73',
         white: '#FFFFFF',
         black: '#000000',
       },
@@ -35,7 +36,13 @@ export const { styled, getCssText, css, globalCss, theme, config, keyframes } =
     },
   });
 
-export type CSS = Stitches.CSS<typeof config>;
+export type CSS<
+  SCSS extends Stitches.CSS<typeof config> = Stitches.CSS<typeof config>,
+> = SCSS & {
+  variants?: {
+    [key: string]: SCSS;
+  };
+};
 
 export const getStyled = <Props extends {} = {}>(
   type: keyof JSX.IntrinsicElements | FunctionComponent,
