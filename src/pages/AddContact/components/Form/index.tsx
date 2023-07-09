@@ -15,16 +15,16 @@ const Form: FunctionComponent<Props> = ({ onSubmit }) => {
 
   return (
     <styles.FormContainer>
-      {Object.values(FORM_FIELDS).map((value) => {
-        if (value === FORM_FIELDS.CATEGORY) {
+      {Object.values(FORM_FIELDS).map((fieldName) => {
+        if (fieldName === FORM_FIELDS.CATEGORY) {
           return (
             <>
               <styles.SelectInput
-                title={value}
-                onInput={(e) => onInput(e, value)}
-                name={value}
-                value={formData.value[value]}
-                hasError={!!errors.value[value]}
+                title={fieldName}
+                onInput={(e) => onInput(e, fieldName)}
+                name={fieldName}
+                value={formData.value[fieldName]}
+                hasError={!!errors.value[fieldName]}
               >
                 {SocialMediaSelectionOptionsList.map((option) => {
                   const props = (
@@ -44,8 +44,8 @@ const Form: FunctionComponent<Props> = ({ onSubmit }) => {
                   );
                 })}
               </styles.SelectInput>
-              {errors.value[value] ? (
-                <styles.ErrorMessage>{errors.value[value]}</styles.ErrorMessage>
+              {errors.value[fieldName] ? (
+                <styles.ErrorMessage>{errors.value[fieldName]}</styles.ErrorMessage>
               ) : null}
             </>
           );
@@ -54,18 +54,18 @@ const Form: FunctionComponent<Props> = ({ onSubmit }) => {
         return (
           <>
             <styles.TextInput
-              key={value}
-              title={value}
-              type={value === FORM_FIELDS.EMAIL ? 'email' : 'text'}
-              name={value}
-              hasError={!!errors.value[value]}
-              value={formData.value[value]}
-              onInput={(e) => onInput(e, value)}
-              placeholder={FIELDS_PLACEHOLDERS[value]}
+              key={fieldName}
+              title={fieldName}
+              type={fieldName === FORM_FIELDS.EMAIL ? 'email' : 'text'}
+              name={fieldName}
+              hasError={!!errors.value[fieldName]}
+              value={formData.value[fieldName]}
+              onInput={(e) => onInput(e, fieldName)}
+              placeholder={FIELDS_PLACEHOLDERS[fieldName]}
             />
 
-            {errors.value[value] ? (
-              <styles.ErrorMessage>{errors.value[value]}</styles.ErrorMessage>
+            {errors.value[fieldName] ? (
+              <styles.ErrorMessage>{errors.value[fieldName]}</styles.ErrorMessage>
             ) : null}
           </>
         );
