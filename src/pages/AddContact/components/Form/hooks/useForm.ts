@@ -3,6 +3,7 @@ import { FormDataType, Props } from '../types';
 import { useComputed, useSignal } from '@preact/signals';
 import { TargetedEvent } from 'preact/compat';
 import { StructError } from 'superstruct';
+import { formatPhone } from '../../../../../shared/utils/formatPhone';
 
 type ErrorsState = {
   [key in typeof FORM_FIELDS[keyof typeof FORM_FIELDS]]?: string | null;
@@ -50,7 +51,7 @@ const useForm = ({ onSubmit }: Props) => {
         } finally {
           formData.value = {
             ...formData.value,
-            [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : value,
+            [key]: key === FORM_FIELDS.CATEGORY && !value ? undefined : formatPhone(value),
           };
         }
       }
