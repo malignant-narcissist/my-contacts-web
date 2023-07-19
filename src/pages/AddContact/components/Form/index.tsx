@@ -45,7 +45,9 @@ const Form: FunctionComponent<Props> = ({ onSubmit }) => {
                 })}
               </styles.SelectInput>
               {errors.value[fieldName] ? (
-                <styles.ErrorMessage>{errors.value[fieldName]}</styles.ErrorMessage>
+                <styles.ErrorMessage>
+                  {errors.value[fieldName]}
+                </styles.ErrorMessage>
               ) : null}
             </>
           );
@@ -65,7 +67,9 @@ const Form: FunctionComponent<Props> = ({ onSubmit }) => {
             />
 
             {errors.value[fieldName] ? (
-              <styles.ErrorMessage>{errors.value[fieldName]}</styles.ErrorMessage>
+              <styles.ErrorMessage>
+                {errors.value[fieldName]}
+              </styles.ErrorMessage>
             ) : null}
           </>
         );
