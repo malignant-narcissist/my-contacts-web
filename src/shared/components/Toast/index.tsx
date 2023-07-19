@@ -25,10 +25,17 @@ const Toast: FunctionComponent = () => {
     };
 
     const addToast = (data: Omit<ToastData, 'iconSource'>) => {
-      messages.value = [
-        ...messages.value,
-        { id: Math.random().toString(), onClick: removeToast, ...data },
-      ];
+      const message = {
+        id: Math.random().toString(),
+        onClick: removeToast,
+        ...data,
+      };
+
+      messages.value = [...messages.value, message];
+
+      setTimeout(() => {
+        removeToast(message.id);
+      }, message.timespan);
     };
 
     toastEventManager.on('ADD_TOAST', addToast);
