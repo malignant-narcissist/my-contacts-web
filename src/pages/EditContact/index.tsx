@@ -1,45 +1,18 @@
 import { Contact } from '../../shared/entities/Contact';
-import { editContactService } from '../../shared/services/contacts/editContactsService';
-import { useContactStore } from '../../shared/stores/contacts.store';
 import { HeaderImage } from '../Home/assets';
 import { Form } from '../components/Form';
-import { Props as FormProps } from '../components/Form/types';
 import ArrowBackIcon from './assets/arrow-left.svg';
+import { useEditContact } from './hooks/useEditContact';
 import * as styles from './styles';
-import { ReadonlySignal, useComputed, useSignal } from '@preact/signals';
+import { ReadonlySignal } from '@preact/signals';
 import { FunctionComponent } from 'preact';
-import { useEffect } from 'preact/hooks';
 
 export type Props = {
   contactId: string;
 };
 
-const EditContact: FunctionComponent<Props> = ({ contactId }) => {
-  const { contacts: contactsFromStore } = useContactStore();
-
-  const contacts = useSignal(contactsFromStore);
-
-  useEffect(() => {
-    contacts.value = contactsFromStore;
-  }, [contactsFromStore]);
-
-  const contactData = useComputed(() => contacts.value.get(contactId));
-
-  const goBack = () => {
-    window.history.back();
-  };
-
-  const onFormSubmit: FormProps['onSubmit'] = async (data) => {
-    try {
-      if (data && contactData?.value?.id) {
-        await editContactService({ ...data, id: contactData.value.id });
-
-        goBack();
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+const EditContact: FunctionComponent<Props> = (props) => {
+  const { contactData, onFormSubmit, goBack } = useEditContact(props);
 
   if (!contactData.value) {
     return null;
