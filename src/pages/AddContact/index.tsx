@@ -1,9 +1,9 @@
 import { createContactService } from '../../shared/services/contacts/createContactService';
 import { useContactStore } from '../../shared/stores/contacts.store';
 import { HeaderImage } from '../Home/assets';
+import { Form } from '../components/Form';
+import { FormDataType } from '../components/Form/types';
 import ArrowBackIcon from './assets/arrow-left.svg';
-import { Form } from './components/Form';
-import { FormDataType } from './components/Form/types';
 import * as styles from './styles';
 import { FunctionComponent } from 'preact';
 import { useLocation } from 'wouter-preact';

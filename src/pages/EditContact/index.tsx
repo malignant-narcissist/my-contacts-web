@@ -2,8 +2,9 @@ import { Contact } from '../../shared/entities/Contact';
 import { editContactService } from '../../shared/services/contacts/editContactsService';
 import { useContactStore } from '../../shared/stores/contacts.store';
 import { HeaderImage } from '../Home/assets';
+import { Form } from '../components/Form';
+import { Props as FormProps } from '../components/Form/types';
 import ArrowBackIcon from './assets/arrow-left.svg';
-import { Form } from './components/Form';
 import * as styles from './styles';
 import { ReadonlySignal, useComputed, useSignal } from '@preact/signals';
 import { FunctionComponent } from 'preact';
@@ -28,7 +29,7 @@ const EditContact: FunctionComponent<Props> = ({ contactId }) => {
     window.history.back();
   };
 
-  const onFormSubmit = async (data: Omit<Contact, 'id'>) => {
+  const onFormSubmit: FormProps['onSubmit'] = async (data) => {
     try {
       if (data && contactData?.value?.id) {
         await editContactService({ ...data, id: contactData.value.id });

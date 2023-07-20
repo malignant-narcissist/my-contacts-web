@@ -8,10 +8,8 @@ import * as styles from './styles';
 import { Props } from './types';
 import { ComponentProps, FunctionComponent } from 'preact';
 
-const Form: FunctionComponent<Props> = ({ onSubmit }) => {
-  const { errors, formData, isFormValid, onCreate, onInput } = useForm({
-    onSubmit,
-  });
+const Form: FunctionComponent<Props> = (props) => {
+  const { errors, formData, isFormValid, onCreate, onInput } = useForm(props);
 
   return (
     <styles.FormContainer>

@@ -1,5 +1,6 @@
-import { Contact } from '../../../../shared/entities/Contact';
+import { Contact } from '../../../shared/entities/Contact';
 import { FORM_FIELDS } from './constants';
+import { ReadonlySignal } from '@preact/signals';
 
 export type FormDataType = Partial<
   Omit<Contact, 'id' | 'socialMedia'> & {
@@ -8,5 +9,6 @@ export type FormDataType = Partial<
 >;
 
 export type Props = {
+  data?: ReadonlySignal<Contact | undefined>;
   onSubmit: (data: FormDataType) => Promise<unknown>;
 };

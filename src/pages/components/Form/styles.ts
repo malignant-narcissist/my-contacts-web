@@ -1,4 +1,4 @@
-import { CSS, getStyled, theme } from '../../../../../stitches.config';
+import { CSS, getStyled, theme } from '../../../../stitches.config';
 import { HTMLAttributes } from 'preact/compat';
 
 const formChildrenStyles: CSS = {

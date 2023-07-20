@@ -1,4 +1,4 @@
-import { formatPhone } from '../../../../../shared/utils/formatPhone';
+import { formatPhone } from '../../../../shared/utils/formatPhone';
 import { ContactFieldsValidations, FORM_FIELDS } from '../constants';
 import { FormDataType, Props } from '../types';
 import { useComputed, useSignal } from '@preact/signals';
@@ -9,8 +9,8 @@ type ErrorsState = {
   [key in typeof FORM_FIELDS[keyof typeof FORM_FIELDS]]?: string | null;
 };
 
-const useForm = ({ onSubmit }: Props) => {
-  const formData = useSignal<FormDataType>({});
+const useForm = ({ onSubmit, data }: Props) => {
+  const formData = useSignal<FormDataType>(data?.value ?? {});
   const errors = useSignal<ErrorsState>({});
 
   const isFormValid = useComputed(
